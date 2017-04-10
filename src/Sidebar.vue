@@ -1,9 +1,25 @@
 <template>
-  <div id="sidebar">
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+  <div id="sidebar" class="has-text-centered is-clearfix">
+    <div>
+      <a href="#">
+        <span class="icon"><i class="fa fa-home"></i><p>All</p></span>
+      </a>
+    </div>
+    <div>
+      <a href="#">
+        <span class="icon"><i class="fa fa-home"></i><p>Active</p></span>
+      </a>
+    </div>
+    <div>
+    <a href="#">
+      <span class="icon"><i class="fa fa-home"></i><p>Completed</p></span>
+    </a>
+    </div>
+    <div>
+    <a href="#">
+      <span class="icon"><i class="fa fa-pause"></i><p class="option">Paused</p></span>
+    </a>
+    </div>
   </div>
 </template>
 
@@ -11,30 +27,26 @@
   export default {
     name: 'sidebar',
     data() {
-      return {
-        msg: 'Welcome to Your Vue.js App'
-      }
+      return {}
     }
   }
 </script>
 
 <style lang="scss">
   #sidebar {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-
     height: 100%;
-    width: 100px;
+    width: 200px;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #333;
     overflow: hidden;
     padding-top: 60px;
     transition: .5s;
+  }
+
+  a {
+    color: white;
   }
 </style>
