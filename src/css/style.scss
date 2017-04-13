@@ -9,8 +9,10 @@ $sidebar-width: 220px;
 $frost-blue: #669BBC;
 $topbar-height: 52px;
 
+@import "shadows.scss";
 @import "sidebar.scss";
 @import "topbar.scss";
+@import "item.scss";
 
 .item-list {
   position: fixed;
@@ -18,4 +20,5 @@ $topbar-height: 52px;
   left: $sidebar-width;
   top: $topbar-height;
   height: 100%;
+  width: 100%;
 }

@@ -1,7 +1,5 @@
 <template>
-  <div class="progress-bar">
     <progress class="progress is-small" :value="value" max="100">{{ value }}</progress>
-  </div>
 </template>
 
 <script>
