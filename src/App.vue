@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <topbar></topbar>
     <sidebar></sidebar>
   </div>
 </template>
@@ -16,5 +17,4 @@ export default {
 
 <style lang="scss">
 @import "css/style.scss";
-
 </style>
