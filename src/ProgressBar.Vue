@@ -16,7 +16,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "css/style.scss";
 .progress::-webkit-progress-value {
   transition: width 0.3s ease;
 }

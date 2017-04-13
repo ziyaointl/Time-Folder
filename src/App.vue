@@ -1,7 +1,14 @@
 <template>
   <div id="app">
-    <topbar></topbar>
     <sidebar></sidebar>
+    <topbar></topbar>
+    <div class="item-list">
+      <item></item>
+      <item></item>
+      <item></item>
+      <item></item>
+      <item></item>
+    </div>
   </div>
 </template>
 

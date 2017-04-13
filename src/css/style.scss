@@ -5,8 +5,17 @@
 @import "node_modules/bulma/sass/grid/_all.sass";
 @import "node_modules/bulma/sass/components/_all.sass";
 
-$sidebarWidth: 220px;
+$sidebar-width: 220px;
 $frost-blue: #669BBC;
+$topbar-height: 52px;
 
 @import "sidebar.scss";
 @import "topbar.scss";
+
+.item-list {
+  position: fixed;
+  overflow: scroll;
+  left: $sidebar-width;
+  top: $topbar-height;
+  height: 100%;
+}
