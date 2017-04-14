@@ -4,7 +4,7 @@
   @include box_shadow(1);
   padding: 30px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .item-icon {
@@ -12,6 +12,26 @@
   width: 100px;
 }
 
-.item>h1 {
+.right-column {
+  flex-grow: 1;
   margin-left: 20px;
+}
+
+span {
+  margin-left: 20px;
+}
+
+span:nth-child(1) {
+  margin-left: 0px;
+}
+
+.info {
+  color: #777;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
