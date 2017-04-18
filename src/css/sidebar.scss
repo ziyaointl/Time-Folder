@@ -26,15 +26,15 @@ i {
     border-color: #333;
 }
 
-.sidebar-item:active {
-    background: #444;
-    border-color: $frost-blue;
-}
-
 .sidebar-item:active h1 {
     color: #fff;
 }
 
 .sidebar-item:hover h1 {
     color: white;
+}
+
+.sidebar-item.is-active {
+    background: #444;
+    border-color: $frost-blue;
 }
