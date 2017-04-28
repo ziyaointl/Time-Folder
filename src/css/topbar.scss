@@ -6,7 +6,8 @@
     top: 0;
     left: $sidebar-width;
     width: 100%;
-    @include box_shadow(1);
+    border-bottom: solid;
+    border-width: 1px;
 }
 
 li {

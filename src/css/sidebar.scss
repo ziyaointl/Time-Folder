@@ -1,3 +1,6 @@
+$dark: #333;
+$light-grey: #777;
+
 #sidebar {
     height: 100%;
     width: $sidebar-width;
@@ -5,14 +8,16 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #333;
+    background-color: white;
     overflow: hidden;
-    padding-top: 40px;
+    padding-top: $topbar-height;
     transition: .5s;
+    border-right: solid;
+    border-width: 1px;
 }
 
 a {
-    color: white;
+    color: $dark;
 }
 
 i {
@@ -22,8 +27,8 @@ i {
 .sidebar-item {
     padding: 10px;
     padding-left: 40px;
-    border-left: solid;
-    border-color: #333;
+    border-right: solid;
+    border-color: $white;
 }
 
 .sidebar-item:active h1 {
@@ -31,10 +36,11 @@ i {
 }
 
 .sidebar-item:hover h1 {
-    color: white;
+    color: $light-grey;
 }
 
 .sidebar-item.is-active {
-    background: #444;
-    border-color: $frost-blue;
+    background: white;
+    border-color: $dark;
+    border-width: 3px;
 }

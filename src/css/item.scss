@@ -1,10 +1,11 @@
 .item {
   margin: 30px;
   margin-right: 250px;
-  @include box_shadow(1);
   padding: 30px;
   display: flex;
   flex-wrap: nowrap;
+  border: solid;
+  border-width: 1px;
 }
 
 .item-icon {
