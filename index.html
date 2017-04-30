@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Space Folder</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css">
-  </head>
-  <body>
-    <div id="app">
-      <div>
-        <a class="button" @click="openAddDialog">Add</a>
-      </div>
-      {{ message }}
+
+<head>
+  <meta charset="utf-8">
+  <title>Space Folder</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css">
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <a class="button" @click="openAddDialog">Add</a>
     </div>
-  </body>
-  <script src="https://unpkg.com/vue"></script>
-  <script src="node_modules/aria2/bundle.js"></script>
-  <script src="./js/main-min.js"></script>
+
+    <div class="modal" id="addDialog">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Add Task
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <div class="field">
+                <label class="label">Link</label>
+                <p class="control">
+                  <input type="text" class="input" placeholder="" v-model="url">
+                  <a class="button" @click="addLink(url)">Add</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close" @click="closeAddDialog"></button>
+    </div>
+    <p v-html="message"></p>
+  </div>
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script src="node_modules/aria2/bundle.js"></script>
+<script src="./js/main-min.js"></script>
+
 </html>
