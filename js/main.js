@@ -22,7 +22,8 @@ let app = new Vue({
     url: "",
     active: [],
     waiting: [],
-    stopped: []
+    stopped: [],
+    currentTab: "active"
   },
   mounted() {
     let vm = this;
@@ -92,12 +93,31 @@ let app = new Vue({
     },
     selectTask(index, event) {
       let target = event.currentTarget;
-      if (target.classList.contains("is-active")) {
-        target.classList.remove("is-active");
+      if (target.classList.contains("is-selected")) {
+        target.classList.remove("is-selected");
       }
       else {
-        target.classList.add("is-active");
+        target.classList.add("is-selected");
       }
+    },
+    deleteTasks() {
+      let vm = this;
+      if (vm.currentTab === 'active') {
+        let targetList = document.getElementById('active-tasks').childNodes;
+        for (let i = 0; i < targetList.length; ++i) {
+          if (targetList[i].classList.contains('is-selected')) {
+            aria2.remove(vm.active[i].gid).then(
+              function(res) {
+                vm.printString('Successfully deleted ' + JSON.stringify(res));
+              },
+              function(err) {
+                vm.printString(JSON.stringify(err));
+              }
+            );
+          }
+        }
+      }
+      vm.updateView();
     }
   }
 });

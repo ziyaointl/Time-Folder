@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/master.css">
   <script type="text/x-template" id="task-template">
     <div class="task" :id="index">
-      <p>{{ data.gid }}</p>
+      <p>{{ data.files[0].uris[0].uri }} {{ data.gid }}</p>
     </div>
   </script>
 </head>
@@ -17,6 +17,7 @@
   <div id="app">
     <div>
       <a class="button" @click="openAddDialog">Add</a>
+      <a class="button" @click="deleteTasks">Delete</a>
     </div>
 
     <div class="modal" id="addDialog">
@@ -46,7 +47,7 @@
 
     <div class="content">
       <h1>Active</h1>
-      <div v-for="(task, index) in active">
+      <div v-for="(task, index) in active" id="active-tasks">
         <task :data="task" :index="index" @click.native="selectTask(index, $event)"></task>
       </div>
       <h1>Waiting</h1>
