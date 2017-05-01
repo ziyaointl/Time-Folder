@@ -5,6 +5,12 @@
   <meta charset="utf-8">
   <title>Space Folder</title>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="/css/master.css">
+  <script type="text/x-template" id="task-template">
+    <div class="task" :id="index">
+      <p>{{ data.gid }}</p>
+    </div>
+  </script>
 </head>
 
 <body>
@@ -40,12 +46,12 @@
 
     <div class="content">
       <h1>Active</h1>
-      <div class="task" v-for="task in active">
-        <p>{{ task.gid }}</p>
+      <div v-for="(task, index) in active">
+        <task :data="task" :index="index" @click.native="selectTask(index, $event)"></task>
       </div>
       <h1>Waiting</h1>
       <div class="task" v-for="task in waiting">
-        <p>{{ task.gid }}</p>
+        <task :data="task"></task>
       </div>
       <h1>Stopped</h1>
       <div class="task" v-for="task in stopped">

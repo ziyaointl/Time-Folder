@@ -10,6 +10,11 @@ let data  = {
 
 let aria2 = new Aria2(data);
 
+Vue.component('task', {
+  template: '#task-template',
+  props: ['data', 'index']
+});
+
 let app = new Vue({
   el: "#app",
   data: {
@@ -30,6 +35,8 @@ let app = new Vue({
         vm.printString(JSON.stringify(err));
       }
     );
+
+    this.updateView();
   },
   methods: {
     openAddDialog() {
@@ -51,9 +58,11 @@ let app = new Vue({
         }
       )
       vm.url = "";
+      vm.updateView();
     },
     printString(string) {
       this.message += "<br>" + string;
+    },
     updateView() {
       let vm = this;
       aria2.tellWaiting(0, 1000).then(
@@ -80,6 +89,15 @@ let app = new Vue({
           vm.printString(JSON.stringify(err));
         }
       );
+    },
+    selectTask(index, event) {
+      let target = event.currentTarget;
+      if (target.classList.contains("is-active")) {
+        target.classList.remove("is-active");
+      }
+      else {
+        target.classList.add("is-active");
+      }
     }
   }
 });
