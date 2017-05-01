@@ -66,30 +66,32 @@ let app = new Vue({
     },
     updateView() {
       let vm = this;
-      aria2.tellWaiting(0, 1000).then(
-        function(res) {
-          vm.waiting = res;
-        },
-        function(err) {
-          vm.printString(JSON.stringify(err));
-        }
-      );
-      aria2.tellActive([0, 1000]).then(
-        function(res) {
-          vm.active = res;
-        },
-        function(err) {
-          vm.printString(JSON.stringify(err));
-        }
-      );
-      aria2.tellStopped(0, 1000).then(
-        function(res) {
-          vm.stopped = res;
-        },
-        function(err) {
-          vm.printString(JSON.stringify(err));
-        }
-      );
+      setInterval(function() {
+        aria2.tellWaiting(0, 1000).then(
+          function(res) {
+            vm.waiting = res;
+          },
+          function(err) {
+            vm.printString(JSON.stringify(err));
+          }
+        );
+        aria2.tellActive([0, 1000]).then(
+          function(res) {
+            vm.active = res;
+          },
+          function(err) {
+            vm.printString(JSON.stringify(err));
+          }
+        );
+        aria2.tellStopped(0, 1000).then(
+          function(res) {
+            vm.stopped = res;
+          },
+          function(err) {
+            vm.printString(JSON.stringify(err));
+          }
+        );
+      }, 1000);
     },
     selectTask(index, event) {
       let target = event.currentTarget;
