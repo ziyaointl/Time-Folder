@@ -37,6 +37,21 @@
       </div>
       <button class="modal-close" @click="closeAddDialog"></button>
     </div>
+
+    <div class="content">
+      <h1>Active</h1>
+      <div class="task" v-for="task in active">
+        <p>{{ task.gid }}</p>
+      </div>
+      <h1>Waiting</h1>
+      <div class="task" v-for="task in waiting">
+        <p>{{ task.gid }}</p>
+      </div>
+      <h1>Stopped</h1>
+      <div class="task" v-for="task in stopped">
+        <p>{{ task.gid }}</p>
+      </div>
+    </div>
     <p v-html="message"></p>
   </div>
 </body>

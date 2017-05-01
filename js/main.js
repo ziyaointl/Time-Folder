@@ -14,9 +14,10 @@ let app = new Vue({
   el: "#app",
   data: {
     message: "",
-    acitveDownloads: [],
-    pausedDownloads: [],
-    url: ""
+    url: "",
+    active: [],
+    waiting: [],
+    stopped: []
   },
   mounted() {
     let vm = this;
@@ -53,6 +54,32 @@ let app = new Vue({
     },
     printString(string) {
       this.message += "<br>" + string;
+    updateView() {
+      let vm = this;
+      aria2.tellWaiting(0, 1000).then(
+        function(res) {
+          vm.waiting = res;
+        },
+        function(err) {
+          vm.printString(JSON.stringify(err));
+        }
+      );
+      aria2.tellActive([0, 1000]).then(
+        function(res) {
+          vm.active = res;
+        },
+        function(err) {
+          vm.printString(JSON.stringify(err));
+        }
+      );
+      aria2.tellStopped(0, 1000).then(
+        function(res) {
+          vm.stopped = res;
+        },
+        function(err) {
+          vm.printString(JSON.stringify(err));
+        }
+      );
     }
   }
 });
