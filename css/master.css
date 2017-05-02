@@ -1,1 +1,1 @@
-.task.is-selected{background-color:yellow}.content h1{font-weight:200}.is-active{font-weight:400 !important}
+.task.is-selected{background-color:yellow}.content h1{font-weight:200;display:inline-block;margin-right:10px}.is-active{font-weight:400 !important}
