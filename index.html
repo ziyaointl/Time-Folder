@@ -23,7 +23,8 @@
     </div>
   </script>
   <script type="text/x-template" id="tab-template">
-    <div v-show="isActive">
+    <!-- <div v-show="isActive"> -->
+    <div>
       <slot></slot>
     </div>
   </script>
@@ -62,19 +63,20 @@
     </div>
 
     <tabs>
-      <tab name="Active" :selected="true">
+      <tab name="All" :selected="true"></tab>
+      <tab name="Active">
         <div id="active-tasks">
-          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in active" :key="index"></task>
+          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in active" :key="index" v-show="currentTab === 'All' || currentTab === 'Active'"></task>
         </div>
       </tab>
       <tab name="Waiting">
-        <div class="task" v-for="task in waiting">
-          <task :data="task"></task>
+        <div id="waiting-tasks">
+          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in waiting" :key="index" v-show="currentTab === 'All' || currentTab === 'Waiting'"></task>
         </div>
       </tab>
       <tab name="Stopped">
         <div id="stopped-tasks">
-          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in stopped" :key="index"></task>
+          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in stopped" :key="index" v-show="currentTab === 'All' || currentTab === 'Stopped'"></task>
         </div>
       </tab>
     </tabs>
@@ -82,6 +84,7 @@
   </div>
 </body>
 <script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuex"></script>
 <script src="node_modules/aria2/bundle.js"></script>
 <script src="./js/main-min.js"></script>
 

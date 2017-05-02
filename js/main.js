@@ -10,6 +10,17 @@ let data  = {
 
 let aria2 = new Aria2(data);
 
+const store = new Vuex.Store({
+  state: {
+    currentTab: "All"
+  },
+  mutations: {
+    setCurrentTab(state, value) {
+      state.currentTab = value;
+    }
+  }
+})
+
 Vue.component('task', {
   template: '#task-template',
   props: ['data', 'index']
@@ -27,9 +38,10 @@ Vue.component('tabs', {
   },
   methods: {
     selectTab(tab) {
-      this.tabs.forEach(currentTab => {
-        currentTab.isActive = (currentTab.name === tab.name);
+      this.tabs.forEach(tempTab => {
+        tempTab.isActive = (tempTab.name === tab.name);
       });
+      store.commit('setCurrentTab', tab.name);
     }
   }
 });
@@ -57,8 +69,15 @@ let app = new Vue({
     url: "",
     active: [],
     waiting: [],
-    stopped: [],
-    currentTab: "stopped"
+    stopped: []
+  },
+  computed: {
+    all() {
+      return this.active.concat(this.waiting.concat(this.stopped));
+    },
+    currentTab() {
+      return store.state.currentTab;
+    }
   },
   mounted() {
     let vm = this;
@@ -140,11 +159,12 @@ let app = new Vue({
     },
     deleteTasks() {
       let vm = this;
-      if (vm.currentTab === 'active') {
-        let targetList = document.getElementById('active-tasks').childNodes;
-        for (let i = 0; i < targetList.length; ++i) {
-          if (targetList[i].classList.contains('is-selected')) {
-            aria2.remove(vm.active[i].gid).then(
+      let targetList = document.getElementsByClassName('task');
+      for (let i = 0; i < targetList.length; ++i) {
+        if (targetList[i].classList.contains('is-selected')) {
+          const status = vm.all[i].status;
+          if (status === 'active' || status === 'waiting' || status === 'paused') {
+            aria2.remove(vm.all[i].gid).then(
               function(res) {
                 vm.printString('Successfully deleted ' + JSON.stringify(res));
               },
@@ -152,16 +172,8 @@ let app = new Vue({
                 vm.printString(JSON.stringify(err));
               }
             );
-          }
-        }
-      }
-      if (vm.currentTab === 'stopped') {
-        let targetList = document.getElementById('stopped-tasks').childNodes;
-        for (let i = 0; i < targetList.length; ++i) {
-          console.log(i);
-          if (targetList[i].classList.contains('is-selected')) {
-            console.log(vm.stopped[i].gid);
-            aria2.removeDownloadResult(vm.stopped[i].gid).then(
+          } else {
+            aria2.removeDownloadResult(vm.all[i].gid).then(
               function(res) {
                 vm.printString('Successfully deleted ' + JSON.stringify(res));
               },
