@@ -164,23 +164,9 @@ let app = new Vue({
         if (targetList[i].classList.contains('is-selected')) {
           const status = vm.all[i].status;
           if (status === 'active' || status === 'waiting' || status === 'paused') {
-            aria2.remove(vm.all[i].gid).then(
-              function(res) {
-                vm.printString('Successfully deleted ' + JSON.stringify(res));
-              },
-              function(err) {
-                vm.printString(JSON.stringify(err));
-              }
-            );
+            vm.deleteActiveTask(i);
           } else {
-            aria2.removeDownloadResult(vm.all[i].gid).then(
-              function(res) {
-                vm.printString('Successfully deleted ' + JSON.stringify(res));
-              },
-              function(err) {
-                vm.printString(JSON.stringify(err));
-              }
-            );
+            vm.deleteCompletedTask(i);
           }
         }
       }
@@ -191,6 +177,29 @@ let app = new Vue({
       while (targetList.length != 0) {
         targetList[0].classList.remove('is-selected');
       }
+    },
+    deleteActiveTask(index) {
+      let vm = this;
+      aria2.remove(vm.all[index].gid).then(
+        function(res) {
+          vm.printString('Successfully deleted ' + JSON.stringify(res));
+        },
+        function(err) {
+          vm.printString(JSON.stringify(err));
+        }
+      );
+      vm.deleteCompletedTask(index);
+    },
+    deleteCompletedTask(index) {
+      let vm = this;
+      aria2.removeDownloadResult(vm.all[index].gid).then(
+        function(res) {
+          vm.printString('Successfully deleted ' + JSON.stringify(res));
+        },
+        function(err) {
+          vm.printString(JSON.stringify(err));
+        }
+      );
     }
   }
 });
