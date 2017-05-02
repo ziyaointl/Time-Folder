@@ -23,7 +23,7 @@ let app = new Vue({
     active: [],
     waiting: [],
     stopped: [],
-    currentTab: "active"
+    currentTab: "stopped"
   },
   mounted() {
     let vm = this;
@@ -66,7 +66,7 @@ let app = new Vue({
     },
     updateView() {
       let vm = this;
-      setInterval(function() {
+      setTimeout(function() {
         aria2.tellWaiting(0, 1000).then(
           function(res) {
             vm.waiting = res;
@@ -93,7 +93,7 @@ let app = new Vue({
         );
       }, 1000);
     },
-    selectTask(index, event) {
+    selectTask(event) {
       let target = event.currentTarget;
       if (target.classList.contains("is-selected")) {
         target.classList.remove("is-selected");
@@ -109,6 +109,23 @@ let app = new Vue({
         for (let i = 0; i < targetList.length; ++i) {
           if (targetList[i].classList.contains('is-selected')) {
             aria2.remove(vm.active[i].gid).then(
+              function(res) {
+                vm.printString('Successfully deleted ' + JSON.stringify(res));
+              },
+              function(err) {
+                vm.printString(JSON.stringify(err));
+              }
+            );
+          }
+        }
+      }
+      if (vm.currentTab === 'stopped') {
+        let targetList = document.getElementById('stopped-tasks').childNodes;
+        for (let i = 0; i < targetList.length; ++i) {
+          console.log(i);
+          if (targetList[i].classList.contains('is-selected')) {
+            console.log(vm.stopped[i].gid);
+            aria2.removeDownloadResult(vm.stopped[i].gid).then(
               function(res) {
                 vm.printString('Successfully deleted ' + JSON.stringify(res));
               },
