@@ -92,6 +92,7 @@ let app = new Vue({
           }
         );
       }, 1000);
+      vm.clearSelected();
     },
     selectTask(event) {
       let target = event.currentTarget;
@@ -137,6 +138,12 @@ let app = new Vue({
         }
       }
       vm.updateView();
+    },
+    clearSelected() {
+      let targetList = document.getElementsByClassName('is-selected');
+      while (targetList.length != 0) {
+        targetList[0].classList.remove('is-selected');
+      }
     }
   }
 });
