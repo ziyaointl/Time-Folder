@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/master.css">
   <script type="text/x-template" id="task-template">
     <div class="task" :id="index">
-      <p>{{ data.files[0].uris[0].uri }} {{ data.gid }}</p>
+      <p>{{ data.files[0].uris[0].uri }} {{ data.gid }} {{ data.status }} {{ data.completedLength / data.totalLength }}</p>
     </div>
   </script>
   <script type="text/x-template" id="tabs-template">
@@ -35,6 +35,7 @@
     <div>
       <a class="button" @click="openAddDialog">Add</a>
       <a class="button" @click="deleteTasks">Delete</a>
+      <a class="button" @click="pauseTasks">Pause</a>
     </div>
 
     <div class="modal" id="addDialog">

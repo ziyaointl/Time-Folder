@@ -200,6 +200,23 @@ let app = new Vue({
           vm.printString(JSON.stringify(err));
         }
       );
+    },
+    pauseTasks() {
+      let vm = this;
+      let targetList = document.getElementsByClassName('task');
+      for (let i = 0; i < targetList.length; ++i) {
+        if (targetList[i].classList.contains('is-selected')) {
+          aria2.pause(vm.all[i].gid).then(
+            function(res) {
+              vm.printString('Successfully paused ' + JSON.stringify(res));
+            },
+            function(err) {
+              vm.printString(JSON.stringify(err));
+            }
+          );
+        }
+      }
+      vm.updateView();
     }
   }
 });
