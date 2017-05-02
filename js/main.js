@@ -15,6 +15,41 @@ Vue.component('task', {
   props: ['data', 'index']
 });
 
+Vue.component('tabs', {
+  template: '#tabs-template',
+  data() {
+    return {
+      tabs: []
+    }
+  },
+  created() {
+    this.tabs = this.$children;
+  },
+  methods: {
+    selectTab(tab) {
+      this.tabs.forEach(currentTab => {
+        currentTab.isActive = (currentTab.name === tab.name);
+      });
+    }
+  }
+});
+
+Vue.component('tab', {
+  template: '#tab-template',
+  props: {
+    name: { required: true },
+    selected: { default: false }
+  },
+  data() {
+    return {
+      isActive: false
+    }
+  },
+  mounted() {
+    this.isActive = this.selected;
+  }
+})
+
 let app = new Vue({
   el: "#app",
   data: {
@@ -91,7 +126,7 @@ let app = new Vue({
             vm.printString(JSON.stringify(err));
           }
         );
-      }, 1000);
+      }, 100);
       vm.clearSelected();
     },
     selectTask(event) {

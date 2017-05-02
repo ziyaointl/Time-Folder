@@ -11,6 +11,22 @@
       <p>{{ data.files[0].uris[0].uri }} {{ data.gid }}</p>
     </div>
   </script>
+  <script type="text/x-template" id="tabs-template">
+    <div>
+      <div class="navigation content">
+        <h1 v-for="tab in tabs" @click="selectTab(tab)" :class="{ 'is-active': tab.isActive }">{{ tab.name }}</h1>
+      </div>
+
+      <div class="content">
+        <slot></slot>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="tab-template">
+    <div v-show="isActive">
+      <slot></slot>
+    </div>
+  </script>
 </head>
 
 <body>
@@ -45,20 +61,23 @@
       <button class="modal-close" @click="closeAddDialog"></button>
     </div>
 
-    <div class="content">
-      <h1>Active</h1>
-      <div id="active-tasks">
-        <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in active" :key="index"></task>
-      </div>
-      <h1>Waiting</h1>
-      <div class="task" v-for="task in waiting">
-        <task :data="task"></task>
-      </div>
-      <h1>Stopped</h1>
-      <div id="stopped-tasks">
-        <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in stopped" :key="index"></task>
-      </div>
-    </div>
+    <tabs>
+      <tab name="Active" :selected="true">
+        <div id="active-tasks">
+          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in active" :key="index"></task>
+        </div>
+      </tab>
+      <tab name="Waiting">
+        <div class="task" v-for="task in waiting">
+          <task :data="task"></task>
+        </div>
+      </tab>
+      <tab name="Stopped">
+        <div id="stopped-tasks">
+          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in stopped" :key="index"></task>
+        </div>
+      </tab>
+    </tabs>
     <p v-html="message"></p>
   </div>
 </body>
