@@ -228,7 +228,9 @@ let app = new Vue({
           vm.printString(JSON.stringify(err));
         }
       );
-      vm.updateView();
+      setTimeout(function() {
+        vm.updateView();
+      }, 1000);
     },
     resumeTasks() {
       let vm = this;
