@@ -248,6 +248,18 @@ let app = new Vue({
         }
       }
       vm.updateView();
+    },
+    resumeAllTasks() {
+      let vm = this;
+      aria2.unpauseAll().then(
+        function(res) {
+          vm.printString('Resumed all ' + JSON.stringify(res));
+        },
+        function(err) {
+          vm.printString(JSON.stringify(err));
+        }
+      );
+      vm.updateView();
     }
   }
 });
