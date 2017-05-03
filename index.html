@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Space Folder</title>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="/css/master.css">
   <script type="text/x-template" id="task-template">
     <div class="task" :id="index">
@@ -14,7 +15,7 @@
   <script type="text/x-template" id="tabs-template">
     <div>
       <div class="navigation content">
-        <h1 v-for="tab in tabs" @click="selectTab(tab)" :class="{ 'is-active': tab.isActive }">{{ tab.name }}</h1>
+        <h1 v-for="tab in tabs" @click="selectTab(tab)" :class="{ 'is-active': tab.isActive }"><i :class="'icon ' + tab.icon"></i>{{ tab.name }}</h1>
       </div>
 
       <div class="main-frame content">
@@ -33,14 +34,12 @@
 <body>
   <div id="app">
     <div class="controls">
-      <div class="main-frame">
         <a class="control-button" @click="openAddDialog">Add</a>
         <a class="control-button" @click="deleteTasks">Delete</a>
         <a class="control-button" @click="pauseTasks">Pause</a>
         <a class="control-button" @click="pauseAllTasks">Pause All</a>
         <a class="control-button" @click="resumeTasks">Resume</a>
         <a class="control-button" @click="resumeAllTasks">Resume All</a>
-      </div>
     </div>
 
     <div class="modal" id="addDialog">
@@ -69,18 +68,18 @@
     </div>
 
     <tabs>
-      <tab name="All" :selected="true"></tab>
-      <tab name="Active">
+      <tab name="All" :selected="true" icon="ion-ios-ionic-outline"></tab>
+      <tab name="Active" icon="ion-ios-timer-outline">
         <div id="active-tasks">
           <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in active" :key="index" v-show="currentTab === 'All' || currentTab === 'Active'"></task>
         </div>
       </tab>
-      <tab name="Waiting">
+      <tab name="Waiting" icon="ion-ios-pause-outline">
         <div id="waiting-tasks">
           <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in waiting" :key="index" v-show="currentTab === 'All' || currentTab === 'Waiting'"></task>
         </div>
       </tab>
-      <tab name="Stopped">
+      <tab name="Stopped" icon="ion-ios-checkmark-outline">
         <div id="stopped-tasks">
           <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in stopped" :key="index" v-show="currentTab === 'All' || currentTab === 'Stopped'"></task>
         </div>

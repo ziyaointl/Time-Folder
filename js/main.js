@@ -50,7 +50,8 @@ Vue.component('tab', {
   template: '#tab-template',
   props: {
     name: { required: true },
-    selected: { default: false }
+    selected: { default: false },
+    icon: {}
   },
   data() {
     return {
