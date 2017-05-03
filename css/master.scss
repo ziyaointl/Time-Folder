@@ -1,4 +1,5 @@
 $navbar-width: 200px;
+$black: #666;
 
 .task.is-selected {
   font-weight: 600;
@@ -25,12 +26,34 @@ $navbar-width: 200px;
   background-color: white;
   overflow-x: hidden;
   padding-top: 30px;
-  transition: 0.5s;
+  transition: 0.1s;
   border-right: solid;
   border-width: 1px;
 }
 
 .main-frame {
-  margin-left: $navbar-width + 20px;
-  margin-top: 20px;
+  margin-left: $navbar-width + 10px;
+  display: flex;
+}
+
+.control-button {
+  color: black;
+  margin: 0px;
+  padding: 10px;
+  font-weight: 200;
+  transition: 0.5s;
+  border-bottom: solid;
+  border-width: 2px;
+  border-color: white;
+}
+
+.control-button:hover {
+  border-color: $black;
+}
+
+.controls {
+  display: flex;
+  width: 100%;
+  border-bottom: solid;
+  border-width: 1px;
 }

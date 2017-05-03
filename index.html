@@ -32,13 +32,15 @@
 
 <body>
   <div id="app">
-    <div class="main-frame">
-      <a class="button" @click="openAddDialog">Add</a>
-      <a class="button" @click="deleteTasks">Delete</a>
-      <a class="button" @click="pauseTasks">Pause</a>
-      <a class="button" @click="pauseAllTasks">Pause All</a>
-      <a class="button" @click="resumeTasks">Resume</a>
-      <a class="button" @click="resumeAllTasks">Resume All</a>
+    <div class="controls">
+      <div class="main-frame">
+        <a class="control-button" @click="openAddDialog">Add</a>
+        <a class="control-button" @click="deleteTasks">Delete</a>
+        <a class="control-button" @click="pauseTasks">Pause</a>
+        <a class="control-button" @click="pauseAllTasks">Pause All</a>
+        <a class="control-button" @click="resumeTasks">Resume</a>
+        <a class="control-button" @click="resumeAllTasks">Resume All</a>
+      </div>
     </div>
 
     <div class="modal" id="addDialog">
