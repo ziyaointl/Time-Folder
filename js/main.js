@@ -124,6 +124,7 @@ let app = new Vue({
         aria2.tellWaiting(0, 1000).then(
           function(res) {
             vm.waiting = res;
+            vm.appendFileName(vm.waiting);
           },
           function(err) {
             vm.printString(JSON.stringify(err));
@@ -132,6 +133,7 @@ let app = new Vue({
         aria2.tellActive([0, 1000]).then(
           function(res) {
             vm.active = res;
+            vm.appendFileName(vm.active);
           },
           function(err) {
             vm.printString(JSON.stringify(err));
@@ -140,6 +142,7 @@ let app = new Vue({
         aria2.tellStopped(0, 1000).then(
           function(res) {
             vm.stopped = res;
+            vm.appendFileName(vm.stopped);
           },
           function(err) {
             vm.printString(JSON.stringify(err));
@@ -260,6 +263,18 @@ let app = new Vue({
         }
       );
       vm.updateView();
+    },
+    appendFileName(data) {
+      for (let i = 0; i < data.length; ++i) {
+        if (data[i].files[0].path === "") {
+          data[i].taskName = data[i].files[0].uris[0].uri;
+        } else {
+          data[i].taskName = this.getFileNameFromPath(data[i].files[0].path)
+        }
+      }
+    },
+    getFileNameFromPath(path) {
+      return path.replace(/^.*[\\\/]/, '');
     }
   }
 });
