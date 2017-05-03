@@ -1,13 +1,36 @@
+$navbar-width: 200px;
+
 .task.is-selected {
   font-weight: 600;
 }
 
-.content h1 {
+.navigation h1 {
   font-weight: 200;
-  display: inline-block;
   margin-right: 10px;
+  padding-left: 20px;
+  font-size: 20px;
 }
 
 .is-active {
   font-weight: 400 !important;
+}
+
+.navigation {
+  height: 100%;
+  width: $navbar-width;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  padding-top: 30px;
+  transition: 0.5s;
+  border-right: solid;
+  border-width: 1px;
+}
+
+.main-frame {
+  margin-left: $navbar-width + 20px;
+  margin-top: 20px;
 }

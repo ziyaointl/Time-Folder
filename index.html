@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/master.css">
   <script type="text/x-template" id="task-template">
     <div class="task" :id="index">
-      <p>{{ data.taskName }} {{ data.gid }} {{ data.status }} {{ data.completedLength / data.totalLength }}</p>
+      <p>{{ data.taskName }} {{ data.gid }} {{ data.status }} {{ data.completedLength / data.totalLength }} {{ data.totalLength }} </p>
     </div>
   </script>
   <script type="text/x-template" id="tabs-template">
@@ -17,7 +17,7 @@
         <h1 v-for="tab in tabs" @click="selectTab(tab)" :class="{ 'is-active': tab.isActive }">{{ tab.name }}</h1>
       </div>
 
-      <div class="content">
+      <div class="main-frame content">
         <slot></slot>
       </div>
     </div>
@@ -32,7 +32,7 @@
 
 <body>
   <div id="app">
-    <div>
+    <div class="main-frame">
       <a class="button" @click="openAddDialog">Add</a>
       <a class="button" @click="deleteTasks">Delete</a>
       <a class="button" @click="pauseTasks">Pause</a>
@@ -84,7 +84,7 @@
         </div>
       </tab>
     </tabs>
-    <p v-html="message"></p>
+    <p v-html="message" class="main-frame"></p>
   </div>
 </body>
 <script src="https://unpkg.com/vue"></script>
