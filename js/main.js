@@ -23,7 +23,16 @@ const store = new Vuex.Store({
 
 Vue.component('task', {
   template: '#task-template',
-  props: ['data', 'index']
+  props: ['data'],
+  computed: {
+    percentFinished() {
+      let n = ((this.data.completedLength / this.data.totalLength) * 100).toFixed(2);
+      n = parseFloat(n);
+      if (n != n)  {
+        return 0;
+      }
+      return n;
+    },
   methods: {
     convertToFileSize(num) {
       if (num < 1024) {

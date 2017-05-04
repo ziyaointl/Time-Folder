@@ -8,8 +8,14 @@
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="/css/master.css">
   <script type="text/x-template" id="task-template">
-    <div class="task" :id="index">
-      <p>{{ data.taskName }} {{ data.gid }} {{ data.status }} {{ data.completedLength / data.totalLength }} {{ data.totalLength }} </p>
+    <div class="task">
+      <div class="row">
+        <p class="task-name">{{ data.taskName }}</p>
+        <p class="percent-finished">{{ percentFinished + '%'}}</p>
+      </div>
+      <div class="row">
+        <p>{{ data.status }} {{ totalSize }}</p>
+      </div>
     </div>
   </script>
   <script type="text/x-template" id="tabs-template">
@@ -18,7 +24,7 @@
         <h1 v-for="tab in tabs" @click="selectTab(tab)" :class="{ 'is-active': tab.isActive }"><i :class="'icon ' + tab.icon"></i>{{ tab.name }}</h1>
       </div>
 
-      <div class="main-frame content">
+      <div class="main-frame">
         <slot></slot>
       </div>
     </div>
