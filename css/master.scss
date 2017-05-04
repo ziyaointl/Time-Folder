@@ -1,6 +1,12 @@
 $navbar-width: 200px;
 $black: #666;
 
+.task {
+  border: solid;
+  display: flex;
+  flex-direction: column;
+}
+
 .task.is-selected {
   font-weight: 600;
 }
@@ -31,8 +37,7 @@ $black: #666;
 }
 
 .main-frame {
-  margin-left: $navbar-width + 10px;
-  display: flex;
+  margin-left: $navbar-width;
 }
 
 .control-button {
@@ -64,4 +69,14 @@ $black: #666;
   display: inline-block;
   width: 1.28571em;
   text-align: center;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+.percent-finished {
+  margin-left: auto;
 }
