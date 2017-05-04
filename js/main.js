@@ -33,6 +33,13 @@ Vue.component('task', {
       }
       return n;
     },
+    finishedSize() {
+      return this.convertToFileSize(this.data.completedLength);
+    },
+    totalSize() {
+      return this.convertToFileSize(this.data.totalLength);
+    }
+  },
   methods: {
     convertToFileSize(num) {
       if (num < 1024) {
