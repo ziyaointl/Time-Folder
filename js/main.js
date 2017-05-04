@@ -24,6 +24,25 @@ const store = new Vuex.Store({
 Vue.component('task', {
   template: '#task-template',
   props: ['data', 'index']
+  methods: {
+    convertToFileSize(num) {
+      if (num < 1024) {
+        return num + 'B';
+      }
+      else if (num < 1024*1024) {
+        return parseFloat((num / 1024).toFixed(2)) + 'KB';
+      }
+      else if (num < 1024*1024*1024) {
+        return parseFloat((num / (1024*1024)).toFixed(2)) + 'MB';
+      }
+      else if (num < 1024*1024*1024*1024) {
+        return parseFloat((num / (1024*1024*1024)).toFixed(2)) + 'GB';
+      }
+      else {
+        return parseFloat((num / (1024*1024*1024*1024)).toFixed(2)) + 'TB';
+      }
+    }
+  }
 });
 
 Vue.component('tabs', {
