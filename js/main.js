@@ -127,6 +127,10 @@ let app = new Vue({
       }
     );
 
+    // setInterval(function() {
+    //   vm.updateView();
+    // }, 500);
+
     this.updateView();
   },
   methods: {

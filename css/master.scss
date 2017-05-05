@@ -6,6 +6,7 @@ $grey: #eee;
 .task {
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 
 .task.is-selected {
@@ -27,7 +28,7 @@ $grey: #eee;
   background-color: $light-grey;
 }
 
-.is-active {
+.navigation h1.is-active {
   border-color: $black !important;
   background-color: $light-grey;
 }
@@ -93,4 +94,34 @@ $grey: #eee;
 
 .percent-finished {
   margin-left: auto;
+}
+
+.progress {
+  border-radius: 0;
+  margin: 0 !important;
+}
+
+.progress::-webkit-progress-bar {
+  background-color: white;
+  border-right: solid;
+  border-left: solid;
+  border-width: 1px;
+}
+
+.progress-background {
+  width: 100%;
+  height: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-bottom: solid;
+  border-width: 1px;
+}
+
+.progress-background hr {
+  position: absolute;
+}
+
+.progress-bar {
+  position: relative;
 }

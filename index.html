@@ -13,8 +13,9 @@
         <p class="task-name">{{ data.taskName }}</p>
         <p class="percent-finished">{{ percentFinished + '%'}}</p>
       </div>
-      <div class="row">
-        <progress class="progress" value="15" max="100">15%</progress>
+      <div class="row progress-bar">
+        <progress class="progress" :value="percentFinished" max="100">15%</progress>
+        <div class="progress-background"></div>
       </div>
       <div class="row">
         <p>{{ data.status }} {{ totalSize }}</p>
