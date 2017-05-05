@@ -14,13 +14,16 @@
         <p class="percent-finished">{{ percentFinished + '%'}}</p>
       </div>
       <div class="row">
+        <progress class="progress" value="15" max="100">15%</progress>
+      </div>
+      <div class="row">
         <p>{{ data.status }} {{ totalSize }}</p>
       </div>
     </div>
   </script>
   <script type="text/x-template" id="tabs-template">
     <div>
-      <div class="navigation content">
+      <div class="navigation">
         <h1 v-for="tab in tabs" @click="selectTab(tab)" :class="{ 'is-active': tab.isActive }"><i :class="'icon ' + tab.icon"></i>{{ tab.name }}</h1>
       </div>
 
