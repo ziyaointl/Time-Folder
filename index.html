@@ -20,6 +20,7 @@
       <div class="row task-info">
         <p>{{ status }}</p>
         <p v-show="data.status === 'active'">{{ downloadSpeed }}<i class="icon ion-arrow-down-c"></i></p>
+        <p v-show="data.status === 'active'">{{ timeRemaining }}</p>
         <p>{{ finishedSize + '/' + totalSize }}</p>
       </div>
     </div>
@@ -106,6 +107,7 @@
     <p v-html="message" class="main-frame"></p>
   </div>
 </body>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.12.3/math.min.js"></script>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/vuex"></script>
 <script src="node_modules/aria2/bundle.js"></script>

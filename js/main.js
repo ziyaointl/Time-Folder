@@ -44,6 +44,16 @@ Vue.component('task', {
     },
     status() {
       return this.data.status[0].toUpperCase() + this.data.status.substr(1);
+    },
+    timeRemaining() {
+      let remainingBytes = this.data.totalLength - this.data.completedLength;
+      let remainingSeconds = remainingBytes / this.data.downloadSpeed;
+      if (remainingSeconds != remainingSeconds || remainingSeconds === Infinity) {
+        return Infinity;
+      }
+      else {
+        return this.convertToTime(math.round(remainingSeconds));
+      }
     }
   },
   methods: {
