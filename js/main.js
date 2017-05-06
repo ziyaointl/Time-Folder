@@ -38,6 +38,12 @@ Vue.component('task', {
     },
     totalSize() {
       return this.convertToFileSize(this.data.totalLength);
+    },
+    downloadSpeed() {
+      return this.convertToFileSize(this.data.downloadSpeed) + '/s';
+    },
+    status() {
+      return this.data.status[0].toUpperCase() + this.data.status.substr(1);
     }
   },
   methods: {
