@@ -125,6 +125,7 @@ html {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
+  margin-bottom: 10px;
 }
 
 .percent-finished {
@@ -165,4 +166,8 @@ html {
 
 .progress-bar {
   position: relative;
+}
+
+.task-info > p {
+  margin-right: 10px;
 }
