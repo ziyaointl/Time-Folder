@@ -133,11 +133,10 @@ let app = new Vue({
       }
     );
 
-    // setInterval(function() {
-    //   vm.updateView();
-    // }, 500);
+    setInterval(function() {
+      vm.updateView();
+    }, 500);
 
-    this.updateView();
   },
   methods: {
     openAddDialog() {
@@ -160,6 +159,7 @@ let app = new Vue({
       )
       vm.url = "";
       vm.updateView();
+      vm.clearSelected();
     },
     printString(string) {
       this.message += "<br>" + string;
@@ -195,7 +195,6 @@ let app = new Vue({
           }
         );
       }, 100);
-      vm.clearSelected();
     },
     selectTask(event) {
       let target = event.currentTarget;
@@ -220,6 +219,7 @@ let app = new Vue({
         }
       }
       vm.updateView();
+      vm.clearSelected();
     },
     clearSelected() {
       let targetList = document.getElementsByClassName('is-selected');
@@ -266,6 +266,7 @@ let app = new Vue({
         }
       }
       vm.updateView();
+      vm.clearSelected();
     },
     pauseAllTasks() {
       let vm = this;
@@ -277,6 +278,7 @@ let app = new Vue({
           vm.printString(JSON.stringify(err));
         }
       );
+      vm.clearSelected();
       setTimeout(function() {
         vm.updateView();
       }, 1000);
@@ -297,6 +299,7 @@ let app = new Vue({
         }
       }
       vm.updateView();
+      vm.clearSelected();
     },
     resumeAllTasks() {
       let vm = this;
@@ -309,6 +312,7 @@ let app = new Vue({
         }
       );
       vm.updateView();
+      vm.clearSelected();
     },
     appendFileName(data) {
       for (let i = 0; i < data.length; ++i) {
