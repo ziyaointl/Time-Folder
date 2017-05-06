@@ -1,6 +1,6 @@
 const Aria2 = window.Aria2;
 
-let data  = {
+let data = {
   host: 'localhost',
   port: 6800,
   secure: false,
@@ -135,11 +135,14 @@ let app = new Vue({
     url: "",
     active: [],
     waiting: [],
-    stopped: []
+    paused: [],
+    stopped: [],
+    complete: [],
+    error: []
   },
   computed: {
     all() {
-      return this.active.concat(this.waiting.concat(this.stopped));
+      return this.active.concat(this.waiting.concat(this.paused.concat(this.complete.concat(this.error))));
     },
     currentTab() {
       return store.state.currentTab;
@@ -193,8 +196,18 @@ let app = new Vue({
       setTimeout(function() {
         aria2.tellWaiting(0, 1000).then(
           function(res) {
-            vm.waiting = res;
-            vm.appendFileName(vm.waiting);
+            vm.appendFileName(res);
+            let pausedTemp = [];
+            let waitingTemp = [];
+            for (let i = 0; i < res.length; ++i) {
+              if (res[i].status === 'paused') {
+                pausedTemp.push(res[i]);
+              } else {
+                waitingTemp.push(res[i]);
+              }
+            }
+            vm.waiting = waitingTemp;
+            vm.paused = pausedTemp;
           },
           function(err) {
             vm.printString(JSON.stringify(err));
@@ -211,8 +224,18 @@ let app = new Vue({
         );
         aria2.tellStopped(0, 1000).then(
           function(res) {
-            vm.stopped = res;
-            vm.appendFileName(vm.stopped);
+            vm.appendFileName(res);
+            let completeTemp = [];
+            let errorTemp = [];
+            for (let i = 0; i < res.length; ++i) {
+              if (res[i].status === 'complete') {
+                completeTemp.push(res[i]);
+              } else {
+                errorTemp.push(res[i]);
+              }
+            }
+            vm.complete = completeTemp;
+            vm.error = errorTemp;
           },
           function(err) {
             vm.printString(JSON.stringify(err));

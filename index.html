@@ -93,15 +93,19 @@
         </div>
       </tab>
       <tab name="Paused" icon="ion-ios-pause-outline">
-
+        <div id="paused-tasks">
+          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in paused" :key="index" v-show="currentTab === 'All' || currentTab === 'Paused'"></task>
+        </div>
       </tab>
       <tab name="Complete" icon="ion-ios-checkmark-outline">
-        <div id="stopped-tasks">
-          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in stopped" :key="index" v-show="currentTab === 'All' || currentTab === 'Stopped'"></task>
+        <div id="complete-tasks">
+          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in complete" :key="index" v-show="currentTab === 'All' || currentTab === 'Complete'"></task>
         </div>
       </tab>
       <tab name="Error" icon="ion-ios-close-outline">
-
+        <div id="error-tasks">
+          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in error" :key="index" v-show="currentTab === 'All' || currentTab === 'Error'"></task>
+        </div>
       </tab>
     </tabs>
     <p v-html="message" class="main-frame"></p>
