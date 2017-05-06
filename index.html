@@ -17,8 +17,10 @@
         <progress class="progress" :value="percentFinished" max="100">15%</progress>
         <div class="progress-background"></div>
       </div>
-      <div class="row">
-        <p>{{ data.status }} {{ totalSize }}</p>
+      <div class="row task-info">
+        <p>{{ status }}</p>
+        <p v-show="data.status === 'active'">{{ downloadSpeed }} </p>
+        <p>{{ finishedSize + '/' + totalSize }}</p>
       </div>
     </div>
   </script>
@@ -84,15 +86,21 @@
           <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in active" :key="index" v-show="currentTab === 'All' || currentTab === 'Active'"></task>
         </div>
       </tab>
-      <tab name="Waiting" icon="ion-ios-pause-outline">
+      <tab name="Waiting" icon="ion-ios-more-outline">
         <div id="waiting-tasks">
           <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in waiting" :key="index" v-show="currentTab === 'All' || currentTab === 'Waiting'"></task>
         </div>
       </tab>
-      <tab name="Stopped" icon="ion-ios-checkmark-outline">
+      <tab name="Paused" icon="ion-ios-pause-outline">
+
+      </tab>
+      <tab name="Complete" icon="ion-ios-checkmark-outline">
         <div id="stopped-tasks">
           <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in stopped" :key="index" v-show="currentTab === 'All' || currentTab === 'Stopped'"></task>
         </div>
+      </tab>
+      <tab name="Error" icon="ion-ios-close-outline">
+
       </tab>
     </tabs>
     <p v-html="message" class="main-frame"></p>
