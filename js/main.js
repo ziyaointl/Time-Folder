@@ -189,7 +189,8 @@ let app = new Vue({
       vm.clearSelected();
     },
     printString(string) {
-      this.message += "<br>" + string;
+      // this.message += "<br>" + string;
+      console.log(string);
     },
     updateView() {
       let vm = this;
