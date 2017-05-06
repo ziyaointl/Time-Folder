@@ -19,7 +19,7 @@
       </div>
       <div class="row task-info">
         <p>{{ status }}</p>
-        <p v-show="data.status === 'active'">{{ downloadSpeed }} </p>
+        <p v-show="data.status === 'active'">{{ downloadSpeed }}<i class="icon ion-arrow-down-c"></i></p>
         <p>{{ finishedSize + '/' + totalSize }}</p>
       </div>
     </div>
