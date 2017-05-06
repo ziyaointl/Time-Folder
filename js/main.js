@@ -63,6 +63,20 @@ Vue.component('task', {
       else {
         return parseFloat((num / (1024*1024*1024*1024)).toFixed(2)) + 'TB';
       }
+    },
+    convertToTime(num) {
+      if (num < 60) {
+        return num + 's';
+      }
+      else if (num < 60 * 60) {
+        return math.round(num / 60) + 'min';
+      }
+      else if (num < 60 * 60 * 60) {
+        return math.round(num / (60 * 60)) + 'h';
+      }
+      else {
+        return math.round(num / (60 * 60 * 24)) + 'd';
+      }
     }
   }
 });
