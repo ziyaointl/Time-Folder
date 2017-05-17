@@ -1,4 +1,4 @@
-const Aria2 = window.Aria2;
+const Aria2 = window.Aria2 === undefined ? require('aria2') : window.Aria2;
 
 let data = {
   host: 'localhost',
