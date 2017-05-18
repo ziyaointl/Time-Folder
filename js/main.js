@@ -10,6 +10,12 @@ let data = {
 
 let aria2 = new Aria2(data);
 
+aria2.onopen = function() {
+  console.log('aria2 open');
+};
+
+aria2.open();
+
 const store = new Vuex.Store({
   state: {
     currentTab: "All"
