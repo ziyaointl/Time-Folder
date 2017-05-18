@@ -178,6 +178,22 @@ html {
   margin-left: -3px;
 }
 
-li.is-active {
-  font-weight: 600;
+.tabs > ul {
+  margin: 0;
+}
+
+.tabs > ul > li {
+  margin-top: 4px;
+}
+
+.tabs li a {
+  color: $black !important;
+}
+
+.tabs li a:hover {
+  border-bottom-color: $black;
+}
+
+.tabs li.is-active a {
+  border-bottom-color: $black;
 }

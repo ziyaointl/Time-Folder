@@ -43,9 +43,9 @@
   </script>
   <script type="text/x-template" id="simple-tabs-template">
     <div>
-      <div class="tabs-menu">
+      <div class="tabs is-centered is-fullwidth">
         <ul>
-          <li v-for="child in $children" :class="{ 'is-active' : child.isActive }" @click="selectTab(child)">{{ child.name }}</li>
+          <li v-for="child in $children" :class="{ 'is-active' : child.isActive }" @click="selectTab(child)"><a>{{ child.name }}</a></li>
         </ul>
       </div>
       <div class="tabs-details">
@@ -75,11 +75,11 @@
       <div class="modal-background"></div>
       <div class="modal-content">
         <div class="card">
-          <header class="card-header">
+          <!-- <header class="card-header">
             <p class="card-header-title">
               Add Task
             </p>
-          </header>
+          </header> -->
           <div class="card-content">
             <div class="content">
               <simple-tabs>
