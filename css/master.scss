@@ -197,3 +197,11 @@ html {
 .tabs li.is-active a {
   border-bottom-color: $black;
 }
+
+#addLink {
+  margin-left: 10px;
+}
+
+.input.is-active, .input.is-focused, .input:active, .input:focus, .textarea.is-active, .textarea.is-focused, .textarea:active, .textarea:focus {
+    border-color: $black;
+}

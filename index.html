@@ -85,10 +85,10 @@
               <simple-tabs>
                 <simple-tab name="Link" :selected="true">
                   <div class="field">
-                    <label class="label">Link</label>
-                    <p class="control">
+                    <!-- <label class="label">Link</label> -->
+                    <p class="control row">
                       <input type="text" class="input" placeholder="" v-model="url">
-                      <a class="button" @click="addLink(url)">Add</a>
+                      <a class="button" @click="addLink(url)" id="addLink">Add</a>
                     </p>
                   </div>
                 </simple-tab>
