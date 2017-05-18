@@ -37,8 +37,24 @@
     </div>
   </script>
   <script type="text/x-template" id="tab-template">
-    <!-- <div v-show="isActive"> -->
     <div>
+      <slot></slot>
+    </div>
+  </script>
+  <script type="text/x-template" id="simple-tabs-template">
+    <div>
+      <div class="tabs-menu">
+        <ul>
+          <li v-for="child in $children" :class="{ 'is-active' : child.isActive }" @click="selectTab(child)">{{ child.name }}</li>
+        </ul>
+      </div>
+      <div class="tabs-details">
+        <slot></slot>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="simple-tab-template">
+    <div v-show="isActive">
       <slot></slot>
     </div>
   </script>
@@ -66,13 +82,20 @@
           </header>
           <div class="card-content">
             <div class="content">
-              <div class="field">
-                <label class="label">Link</label>
-                <p class="control">
-                  <input type="text" class="input" placeholder="" v-model="url">
-                  <a class="button" @click="addLink(url)">Add</a>
-                </p>
-              </div>
+              <simple-tabs>
+                <simple-tab name="Link" :selected="true">
+                  <div class="field">
+                    <label class="label">Link</label>
+                    <p class="control">
+                      <input type="text" class="input" placeholder="" v-model="url">
+                      <a class="button" @click="addLink(url)">Add</a>
+                    </p>
+                  </div>
+                </simple-tab>
+                <simple-tab name="Torrent">
+                  <p>Here goes the torrent file.</p>
+                </simple-tab>
+              </simple-tabs>
             </div>
           </div>
         </div>

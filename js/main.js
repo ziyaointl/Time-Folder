@@ -97,6 +97,37 @@ Vue.component('task', {
   }
 });
 
+Vue.component('simple-tabs', {
+  template: '#simple-tabs-template',
+  methods: {
+    selectTab(tab) {
+      this.$children.forEach(currentTab => {
+        if (currentTab.name !== tab.name) {
+          currentTab.isActive = false;
+        } else {
+          currentTab.isActive = true;
+        }
+      })
+    }
+  }
+});
+
+Vue.component('simple-tab', {
+  template: '#simple-tab-template',
+  props: {
+    name: { required: true },
+    selected: { default: false }
+  },
+  data() {
+    return {
+      isActive: false
+    }
+  },
+  mounted() {
+    this.isActive = this.selected;
+  }
+})
+
 Vue.component('tabs', {
   template: '#tabs-template',
   data() {
@@ -122,7 +153,7 @@ Vue.component('tab', {
   props: {
     name: { required: true },
     selected: { default: false },
-    icon: {}
+    icon: { required: true }
   },
   data() {
     return {
