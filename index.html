@@ -63,12 +63,12 @@
 <body>
   <div id="app">
     <div class="controls">
-        <a class="control-button" @click="openAddDialog">Add</a>
-        <a class="control-button" @click="deleteTasks">Delete</a>
-        <a class="control-button" @click="pauseTasks">Pause</a>
-        <a class="control-button" @click="pauseAllTasks">Pause All</a>
-        <a class="control-button" @click="resumeTasks">Resume</a>
-        <a class="control-button" @click="resumeAllTasks">Resume All</a>
+        <a class="control-button" @click="openAddDialog"><i class="icon ion-plus-round"></i> Add</a>
+        <a class="control-button" @click="deleteTasks"><i class="icon ion-trash-b"></i> Delete</a>
+        <a class="control-button" @click="pauseTasks"><i class="icon ion-pause"></i> Pause</a>
+        <a class="control-button" @click="pauseAllTasks"><i class="icon ion-pause"></i> Pause All</a>
+        <a class="control-button" @click="resumeTasks"><i class="icon ion-play"></i> Resume</a>
+        <a class="control-button" @click="resumeAllTasks"><i class="icon ion-play"></i> Resume All</a>
     </div>
 
     <div class="modal" id="addDialog">
