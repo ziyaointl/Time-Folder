@@ -94,6 +94,12 @@
                 </simple-tab>
                 <simple-tab name="Torrent">
                   <p>Here goes the torrent file.</p>
+                  <form enctype="multipart/form-data">
+                    <div class="dropbox">
+                      <input type="file" multiple @change="fileChange($event)" class="file-input" id="file-input" accept=".torrent">
+                      <label for="file-input"> This is a test </label>
+                    </div>
+                  </form>
                 </simple-tab>
               </simple-tabs>
             </div>

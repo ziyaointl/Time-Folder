@@ -410,6 +410,27 @@ let app = new Vue({
     },
     getFileNameFromPath(path) {
       return path.replace(/^.*[\\\/]/, '');
+    },
+    fileChange($event) {
+      let vm = this;
+      let files = $event.target.files;
+      for (let i = 0; i < files.length; ++i) {
+        let reader = new FileReader();
+        reader.onload = () => {
+          let result = window.btoa(reader.result);
+          console.log(result);
+          aria2.addTorrent(result).then(
+            function (res) {
+              vm.printString('Added Torrent ' + JSON.stringify(res));
+            },
+            function (err) {
+              vm.printString(JSON.stringify(err));
+            }
+          );
+          vm.updateView();
+        }
+        reader.readAsBinaryString(files[i]);
+      }
     }
   }
 });
