@@ -4,6 +4,7 @@ $light-grey: rgb(244,244,244);
 $grey: #eee;
 $white: rgb(250,250,250);
 $title-bar-height: 50px;
+$control-bar-height: 44px;
 
 html {
   background-color: $white;
@@ -58,6 +59,7 @@ html {
   border-width: 3px;
   border-color: $white;
   transition: 0.1s;
+  height: $control-bar-height;
 }
 
 .navigation h1:hover {
@@ -89,6 +91,7 @@ html {
 
 .main-frame {
   margin-left: $navbar-width;
+  margin-top: $title-bar-height + $control-bar-height;
 }
 
 .control-button {
@@ -115,13 +118,18 @@ html {
 }
 
 .controls {
+  position: fixed;
+  z-index: 3;
+  top: 0;
   display: flex;
   width: 100%;
+  height: $control-bar-height;
   border-bottom: solid;
   border-width: 1px;
   border-color: $grey;
   margin-left: $navbar-width;
   margin-top: $title-bar-height;
+  background-color: $white;
 }
 
 .ion-fw {
