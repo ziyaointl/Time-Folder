@@ -83,6 +83,7 @@ html {
   border-right: solid;
   border-width: 1px;
   border-color: $grey;
+  -webkit-app-region: drag;
 }
 
 .main-frame {
