@@ -206,5 +206,9 @@ html {
 }
 
 .input.is-active, .input.is-focused, .input:active, .input:focus, .textarea.is-active, .textarea.is-focused, .textarea:active, .textarea:focus {
-    border-color: $black;
+  border-color: $black;
+}
+
+.card {
+  background-color: $light-grey;
 }
