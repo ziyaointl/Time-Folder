@@ -212,3 +212,10 @@ html {
 .card {
   background-color: $light-grey;
 }
+
+.file-input {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  z-index: -1;
+}
