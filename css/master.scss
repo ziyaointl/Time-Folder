@@ -1,9 +1,10 @@
 $navbar-width: 200px;
 $black: #666;
+$light-black: #999;
 $light-grey: rgb(244,244,244);
 $grey: #eee;
 $white: rgb(250,250,250);
-$title-bar-height: 50px;
+$title-bar-height: 36px;
 $control-bar-height: 44px;
 
 html {
@@ -103,9 +104,9 @@ html {
   font-weight: 200;
   font-size: 1rem;
   transition: 0.1s;
-  border-right: solid;
-  border-width: 1px;
-  border-color: $grey;
+  // border-right: solid;
+  // border-width: 1px;
+  // border-color: $grey;
 }
 
 .control-button:hover {
@@ -243,4 +244,18 @@ html {
   border-bottom: solid;
   border-bottom-width: 1px;
   border-bottom-color: $grey;
+}
+
+.title-bar-button-group {
+  display: flex;
+  margin-top: 12px;
+  margin-left: 12px;
+}
+
+.title-bar-button {
+  height: 12px;
+  width: 12px;
+  margin-right: 10px;
+  border-radius: 100%;
+  background-color: $light-black;
 }
