@@ -238,7 +238,7 @@ html {
   height: $title-bar-height;
   top: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 3;
   background-color: $white;
   -webkit-app-region: drag;
   border-bottom: solid;
