@@ -93,6 +93,15 @@ Vue.component('task', {
       else {
         return math.round(num / (60 * 60 * 24)) + 'd';
       }
+    },
+    selectTask(event) {
+      let target = event.currentTarget;
+      if (target.classList.contains("is-selected")) {
+        target.classList.remove("is-selected");
+      }
+      else {
+        target.classList.add("is-selected");
+      }
     }
   }
 });
@@ -280,15 +289,6 @@ let app = new Vue({
           }
         );
       }, 100);
-    },
-    selectTask(event) {
-      let target = event.currentTarget;
-      if (target.classList.contains("is-selected")) {
-        target.classList.remove("is-selected");
-      }
-      else {
-        target.classList.add("is-selected");
-      }
     },
     deleteTasks() {
       let vm = this;

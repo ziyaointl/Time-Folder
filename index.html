@@ -8,20 +8,28 @@
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="./css/master.css">
   <script type="text/x-template" id="task-template">
-    <div class="task">
-      <div class="row">
-        <p class="task-name">{{ data.taskName }}</p>
-        <p class="percent-finished">{{ percentFinished + '%'}}</p>
+    <div>
+      <div class="task" @click="selectTask($event)">
+        <div class="row">
+          <p class="task-name">{{ data.taskName }}</p>
+          <p class="percent-finished">{{ percentFinished + '%'}}</p>
+        </div>
+        <div class="row progress-bar">
+          <progress class="progress" :value="percentFinished" max="100">15%</progress>
+          <div class="progress-background"></div>
+        </div>
+        <div class="row task-info">
+          <p>{{ status }}</p>
+          <p v-show="data.status === 'active'">{{ downloadSpeed }}<i class="icon ion-arrow-down-c"></i></p>
+          <p v-show="data.status === 'active'">{{ timeRemaining }}</p>
+          <p>{{ finishedSize + '/' + totalSize }}</p>
+          <p class="more-info-button"><i class="icon ion-chevron-down"></i></p>
+        </div>
       </div>
-      <div class="row progress-bar">
-        <progress class="progress" :value="percentFinished" max="100">15%</progress>
-        <div class="progress-background"></div>
-      </div>
-      <div class="row task-info">
-        <p>{{ status }}</p>
-        <p v-show="data.status === 'active'">{{ downloadSpeed }}<i class="icon ion-arrow-down-c"></i></p>
-        <p v-show="data.status === 'active'">{{ timeRemaining }}</p>
-        <p>{{ finishedSize + '/' + totalSize }}</p>
+      <div class="more-info">
+        <div class="row">
+          <p>Clients</p>
+        </div>
       </div>
     </div>
   </script>
@@ -121,27 +129,27 @@
       <tab name="All" :selected="true" icon="ion-ios-ionic-outline"></tab>
       <tab name="Active" icon="ion-ios-timer-outline">
         <div id="active-tasks">
-          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in active" :key="index" v-show="currentTab === 'All' || currentTab === 'Active'"></task>
+          <task :data="task" v-for="(task, index) in active" :key="index" v-show="currentTab === 'All' || currentTab === 'Active'"></task>
         </div>
       </tab>
       <tab name="Waiting" icon="ion-ios-more-outline">
         <div id="waiting-tasks">
-          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in waiting" :key="index" v-show="currentTab === 'All' || currentTab === 'Waiting'"></task>
+          <task :data="task" v-for="(task, index) in waiting" :key="index" v-show="currentTab === 'All' || currentTab === 'Waiting'"></task>
         </div>
       </tab>
       <tab name="Paused" icon="ion-ios-pause-outline">
         <div id="paused-tasks">
-          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in paused" :key="index" v-show="currentTab === 'All' || currentTab === 'Paused'"></task>
+          <task :data="task" v-for="(task, index) in paused" :key="index" v-show="currentTab === 'All' || currentTab === 'Paused'"></task>
         </div>
       </tab>
       <tab name="Complete" icon="ion-ios-checkmark-outline">
         <div id="complete-tasks">
-          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in complete" :key="index" v-show="currentTab === 'All' || currentTab === 'Complete'"></task>
+          <task :data="task" v-for="(task, index) in complete" :key="index" v-show="currentTab === 'All' || currentTab === 'Complete'"></task>
         </div>
       </tab>
       <tab name="Error" icon="ion-ios-close-outline">
         <div id="error-tasks">
-          <task :data="task" @click.native="selectTask($event)" v-for="(task, index) in error" :key="index" v-show="currentTab === 'All' || currentTab === 'Error'"></task>
+          <task :data="task" v-for="(task, index) in error" :key="index" v-show="currentTab === 'All' || currentTab === 'Error'"></task>
         </div>
       </tab>
     </tabs>
@@ -155,5 +163,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.ui.min.js"></script>
 <script src="./js/main.js"></script>
-
 </html>
