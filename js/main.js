@@ -102,6 +102,14 @@ Vue.component('task', {
       else {
         target.classList.add("is-selected");
       }
+    },
+    showInfo(event) {
+      let target = event.currentTarget.parentElement.parentElement.nextElementSibling;
+      if (target.classList.contains("is-shown")) {
+        target.classList.remove("is-shown")
+      } else {
+        target.classList.add("is-shown")
+      }
     }
   }
 });
