@@ -64,6 +64,23 @@
   margin-left: auto;
   margin-right: 0 !important; }
 
+.more-info {
+  flex-direction: column;
+  color: #666;
+  border-bottom: solid;
+  border-bottom-color: #eee;
+  border-bottom-width: 1px;
+  border-left: solid;
+  border-left-width: 3px;
+  border-left-color: #eee;
+  transition: 0.5s;
+  background-color: #eee;
+  display: flex;
+  height: 0;
+  padding-left: 40px;
+  padding-right: 40px;
+  overflow: hidden; }
+
 html {
   background-color: #fafafa;
   user-select: none; }
@@ -202,3 +219,7 @@ html {
   margin-right: 10px;
   border-radius: 100%;
   background-color: #999; }
+
+.is-shown {
+  height: 300px;
+  padding-top: 30px; }

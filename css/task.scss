@@ -91,5 +91,19 @@
 }
 
 .more-info {
-
+  flex-direction: column;
+  color: $black;
+  border-bottom: solid;
+  border-bottom-color: $grey;
+  border-bottom-width: 1px;
+  border-left: solid;
+  border-left-width: 3px;
+  border-left-color: $grey;
+  transition: 0.5s;
+  background-color: $grey;
+  display: flex;
+  height: 0;
+  padding-left: 40px;
+  padding-right: 40px;
+  overflow: hidden;
 }
