@@ -21,6 +21,7 @@
         <div class="row task-info">
           <p>{{ status }}</p>
           <p v-show="data.status === 'active'">{{ downloadSpeed }}<i class="icon ion-arrow-down-c"></i></p>
+          <p v-show="uploadSpeed !== undefined">{{ uploadSpeed }}<i class="icon ion-arrow-up-c"></i></p>
           <p v-show="data.status === 'active'">{{ timeRemaining }}</p>
           <p>{{ finishedSize + '/' + totalSize }}</p>
           <p class="more-info-button" @click="showInfo($event)"><i class="icon ion-chevron-down"></i></p>

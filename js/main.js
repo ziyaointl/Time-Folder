@@ -60,6 +60,12 @@ Vue.component('task', {
       else {
         return this.convertToTime(math.round(remainingSeconds));
       }
+    },
+    uploadSpeed() {
+      if (this.data.uploadSpeed !== undefined) {
+        return this.convertToFileSize(this.data.uploadSpeed) + '/s';
+      }
+      return undefined;
     }
   },
   methods: {
