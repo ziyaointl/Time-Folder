@@ -66,6 +66,9 @@ Vue.component('task', {
         return this.convertToFileSize(this.data.uploadSpeed) + '/s';
       }
       return undefined;
+    },
+    directory() {
+      return this.data.dir;
     }
   },
   methods: {
