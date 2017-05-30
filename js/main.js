@@ -69,6 +69,9 @@ Vue.component('task', {
     },
     directory() {
       return this.data.dir;
+    },
+    connections() {
+      return this.data.connections;
     }
   },
   methods: {
