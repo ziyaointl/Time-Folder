@@ -72,6 +72,9 @@ Vue.component('task', {
     },
     connections() {
       return this.data.connections;
+    },
+    seeders() {
+      return this.data.numSeeders;
     }
   },
   methods: {

@@ -30,6 +30,7 @@
       <div class="more-info">
         <p>Directory: {{ directory }}</p>
         <p>Connections: {{ connections }}</p>
+        <p v-if="seeders !== undefined">Seeders: {{ seeders }}</p>
       </div>
     </div>
   </script>
