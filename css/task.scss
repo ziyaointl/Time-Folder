@@ -98,12 +98,17 @@
   border-bottom-width: 1px;
   border-left: solid;
   border-left-width: 3px;
-  border-left-color: $grey;
+  border-left-color: $light-grey;
   transition: 0.5s;
-  background-color: $grey;
+  background-color: $light-grey;
   display: flex;
   height: 0;
   padding-left: 40px;
   padding-right: 40px;
   overflow: hidden;
+}
+
+.is-shown {
+  height: 150px;
+  padding-top: 30px;
 }
