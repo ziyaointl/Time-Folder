@@ -116,6 +116,7 @@ Vue.component('task', {
       }
     },
     showInfo(event) {
+      event.stopPropagation();
       let target = event.currentTarget.parentElement.parentElement.nextElementSibling;
       if (target.classList.contains("is-shown")) {
         target.classList.remove("is-shown")
