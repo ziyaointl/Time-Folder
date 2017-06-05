@@ -78,6 +78,18 @@ Vue.component('task', {
     },
     isSeeding() {
       return this.data.seeder;
+    },
+    name() {
+      if (this.data.bittorrent) {
+        if (this.data.bittorrent.info) {
+          return this.data.bittorrent.info.name
+        }
+      }
+      if (this.data.files[0].path === "") {
+        return this.data.files[0].uris[0].uri;
+      } else {
+        return this.getFileNameFromPath(this.data.files[0].path);
+      }
     }
   },
   methods: {
@@ -129,6 +141,9 @@ Vue.component('task', {
       } else {
         target.classList.add("is-shown")
       }
+    },
+    getFileNameFromPath(path) {
+      return path.replace(/^.*[\\\/]/, '');
     }
   }
 });
@@ -270,7 +285,6 @@ let app = new Vue({
       setTimeout(function() {
         aria2.tellWaiting(0, 1000).then(
           function(res) {
-            vm.appendFileName(res);
             let pausedTemp = [];
             let waitingTemp = [];
             for (let i = 0; i < res.length; ++i) {
@@ -290,7 +304,6 @@ let app = new Vue({
         aria2.tellActive([0, 1000]).then(
           function(res) {
             vm.active = res;
-            vm.appendFileName(vm.active);
           },
           function(err) {
             vm.printString(JSON.stringify(err));
@@ -298,7 +311,6 @@ let app = new Vue({
         );
         aria2.tellStopped(0, 1000).then(
           function(res) {
-            vm.appendFileName(res);
             let completeTemp = [];
             let errorTemp = [];
             for (let i = 0; i < res.length; ++i) {
@@ -425,18 +437,6 @@ let app = new Vue({
       );
       vm.updateView();
       vm.clearSelected();
-    },
-    appendFileName(data) {
-      for (let i = 0; i < data.length; ++i) {
-        if (data[i].files[0].path === "") {
-          data[i].taskName = data[i].files[0].uris[0].uri;
-        } else {
-          data[i].taskName = this.getFileNameFromPath(data[i].files[0].path)
-        }
-      }
-    },
-    getFileNameFromPath(path) {
-      return path.replace(/^.*[\\\/]/, '');
     },
     fileChange($event) {
       let vm = this;
