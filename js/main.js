@@ -75,6 +75,9 @@ Vue.component('task', {
     },
     seeders() {
       return this.data.numSeeders;
+    },
+    isSeeding() {
+      return this.data.seeder;
     }
   },
   methods: {
