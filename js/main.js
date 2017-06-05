@@ -1,4 +1,4 @@
-const Aria2 = window.Aria2 === undefined ? require('aria2') : window.Aria2;
+const Aria2 = window.Aria2 === undefined ? require('aria2') : window.Aria2
 
 let data = {
   host: 'localhost',
@@ -6,15 +6,15 @@ let data = {
   secure: false,
   secret: '',
   path: '/jsonrpc'
-};
+}
 
-let aria2 = new Aria2(data);
+let aria2 = new Aria2(data)
 
 aria2.onopen = function() {
-  console.log('aria2 open');
-};
+  console.log('aria2 open')
+}
 
-aria2.open();
+aria2.open()
 
 const store = new Vuex.Store({
   state: {
@@ -22,7 +22,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     setCurrentTab(state, value) {
-      state.currentTab = value;
+      state.currentTab = value
     }
   }
 })
@@ -32,52 +32,52 @@ Vue.component('task', {
   props: ['data'],
   computed: {
     percentFinished() {
-      let n = ((this.data.completedLength / this.data.totalLength) * 100).toFixed(2);
-      n = parseFloat(n);
+      let n = ((this.data.completedLength / this.data.totalLength) * 100).toFixed(2)
+      n = parseFloat(n)
       if (n != n)  {
-        return 0;
+        return 0
       }
-      return n;
+      return n
     },
     finishedSize() {
-      return this.convertToFileSize(this.data.completedLength);
+      return this.convertToFileSize(this.data.completedLength)
     },
     totalSize() {
-      return this.convertToFileSize(this.data.totalLength);
+      return this.convertToFileSize(this.data.totalLength)
     },
     downloadSpeed() {
-      return this.convertToFileSize(this.data.downloadSpeed) + '/s';
+      return this.convertToFileSize(this.data.downloadSpeed) + '/s'
     },
     status() {
-      return this.data.status[0].toUpperCase() + this.data.status.substr(1);
+      return this.data.status[0].toUpperCase() + this.data.status.substr(1)
     },
     timeRemaining() {
-      let remainingBytes = this.data.totalLength - this.data.completedLength;
-      let remainingSeconds = remainingBytes / this.data.downloadSpeed;
+      let remainingBytes = this.data.totalLength - this.data.completedLength
+      let remainingSeconds = remainingBytes / this.data.downloadSpeed
       if (remainingSeconds != remainingSeconds || remainingSeconds === Infinity) {
-        return Infinity;
+        return Infinity
       }
       else {
-        return this.convertToTime(math.round(remainingSeconds));
+        return this.convertToTime(math.round(remainingSeconds))
       }
     },
     uploadSpeed() {
       if (this.data.uploadSpeed !== undefined) {
-        return this.convertToFileSize(this.data.uploadSpeed) + '/s';
+        return this.convertToFileSize(this.data.uploadSpeed) + '/s'
       }
-      return undefined;
+      return undefined
     },
     directory() {
-      return this.data.dir;
+      return this.data.dir
     },
     connections() {
-      return this.data.connections;
+      return this.data.connections
     },
     seeders() {
-      return this.data.numSeeders;
+      return this.data.numSeeders
     },
     isSeeding() {
-      return this.data.seeder;
+      return this.data.seeder
     },
     name() {
       if (this.data.bittorrent) {
@@ -86,56 +86,56 @@ Vue.component('task', {
         }
       }
       if (this.data.files[0].path === "") {
-        return this.data.files[0].uris[0].uri;
+        return this.data.files[0].uris[0].uri
       } else {
-        return this.getFileNameFromPath(this.data.files[0].path);
+        return this.getFileNameFromPath(this.data.files[0].path)
       }
     }
   },
   methods: {
     convertToFileSize(num) {
       if (num < 1024) {
-        return num + 'B';
+        return num + 'B'
       }
       else if (num < 1024*1024) {
-        return parseFloat((num / 1024).toFixed(2)) + 'KB';
+        return parseFloat((num / 1024).toFixed(2)) + 'KB'
       }
       else if (num < 1024*1024*1024) {
-        return parseFloat((num / (1024*1024)).toFixed(2)) + 'MB';
+        return parseFloat((num / (1024*1024)).toFixed(2)) + 'MB'
       }
       else if (num < 1024*1024*1024*1024) {
-        return parseFloat((num / (1024*1024*1024)).toFixed(2)) + 'GB';
+        return parseFloat((num / (1024*1024*1024)).toFixed(2)) + 'GB'
       }
       else {
-        return parseFloat((num / (1024*1024*1024*1024)).toFixed(2)) + 'TB';
+        return parseFloat((num / (1024*1024*1024*1024)).toFixed(2)) + 'TB'
       }
     },
     convertToTime(num) {
       if (num < 60) {
-        return num + 's';
+        return num + 's'
       }
       else if (num < 60 * 60) {
-        return math.round(num / 60) + 'min';
+        return math.round(num / 60) + 'min'
       }
       else if (num < 60 * 60 * 60) {
-        return math.round(num / (60 * 60)) + 'h';
+        return math.round(num / (60 * 60)) + 'h'
       }
       else {
-        return math.round(num / (60 * 60 * 24)) + 'd';
+        return math.round(num / (60 * 60 * 24)) + 'd'
       }
     },
     selectTask(event) {
-      let target = event.currentTarget;
+      let target = event.currentTarget
       if (target.classList.contains("is-selected")) {
-        target.classList.remove("is-selected");
+        target.classList.remove("is-selected")
       }
       else {
-        target.classList.add("is-selected");
+        target.classList.add("is-selected")
       }
     },
     showInfo(event) {
-      event.stopPropagation();
-      let target = event.currentTarget.parentElement.parentElement.nextElementSibling;
+      event.stopPropagation()
+      let target = event.currentTarget.parentElement.parentElement.nextElementSibling
       if (target.classList.contains("is-shown")) {
         target.classList.remove("is-shown")
       } else {
@@ -143,10 +143,10 @@ Vue.component('task', {
       }
     },
     getFileNameFromPath(path) {
-      return path.replace(/^.*[\\\/]/, '');
+      return path.replace(/^.*[\\\/]/, '')
     }
   }
-});
+})
 
 Vue.component('simple-tabs', {
   template: '#simple-tabs-template',
@@ -154,14 +154,14 @@ Vue.component('simple-tabs', {
     selectTab(tab) {
       this.$children.forEach(currentTab => {
         if (currentTab.name !== tab.name) {
-          currentTab.isActive = false;
+          currentTab.isActive = false
         } else {
-          currentTab.isActive = true;
+          currentTab.isActive = true
         }
       })
     }
   }
-});
+})
 
 Vue.component('simple-tab', {
   template: '#simple-tab-template',
@@ -175,7 +175,7 @@ Vue.component('simple-tab', {
     }
   },
   mounted() {
-    this.isActive = this.selected;
+    this.isActive = this.selected
   }
 })
 
@@ -187,17 +187,17 @@ Vue.component('tabs', {
     }
   },
   created() {
-    this.tabs = this.$children;
+    this.tabs = this.$children
   },
   methods: {
     selectTab(tab) {
       this.tabs.forEach(tempTab => {
-        tempTab.isActive = (tempTab.name === tab.name);
-      });
-      store.commit('setCurrentTab', tab.name);
+        tempTab.isActive = (tempTab.name === tab.name)
+      })
+      store.commit('setCurrentTab', tab.name)
     }
   }
-});
+})
 
 Vue.component('tab', {
   template: '#tab-template',
@@ -212,7 +212,7 @@ Vue.component('tab', {
     }
   },
   mounted() {
-    this.isActive = this.selected;
+    this.isActive = this.selected
   }
 })
 
@@ -230,234 +230,234 @@ let app = new Vue({
   },
   computed: {
     all() {
-      return this.active.concat(this.waiting.concat(this.paused.concat(this.complete.concat(this.error))));
+      return this.active.concat(this.waiting.concat(this.paused.concat(this.complete.concat(this.error))))
     },
     currentTab() {
-      return store.state.currentTab;
+      return store.state.currentTab
     }
   },
   mounted() {
-    let vm = this;
+    let vm = this
 
     aria2.getVersion().then(
       function (res) {
-        vm.printString(JSON.stringify(res));
+        vm.printString(JSON.stringify(res))
       },
       function (err) {
-        vm.printString(JSON.stringify(err));
+        vm.printString(JSON.stringify(err))
       }
-    );
+    )
 
     setInterval(function() {
-      vm.updateView();
-    }, 500);
+      vm.updateView()
+    }, 500)
 
   },
   methods: {
     openAddDialog() {
-      let el = document.getElementById("addDialog");
-      el.classList.add("is-active");
+      let el = document.getElementById("addDialog")
+      el.classList.add("is-active")
     },
     closeAddDialog() {
-      let el = document.getElementById("addDialog");
-      el.classList.remove("is-active");
+      let el = document.getElementById("addDialog")
+      el.classList.remove("is-active")
     },
     addLink(url) {
-      let vm = this;
+      let vm = this
       aria2.addUri([url]).then(
         function(res) {
-          vm.printString(JSON.stringify(res));
+          vm.printString(JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err));
+          vm.printString(JSON.stringify(err))
         }
       )
-      vm.url = "";
-      vm.updateView();
-      vm.clearSelected();
+      vm.url = ""
+      vm.updateView()
+      vm.clearSelected()
     },
     printString(string) {
-      // this.message += "<br>" + string;
-      console.log(string);
+      // this.message += "<br>" + string
+      console.log(string)
     },
     updateView() {
-      let vm = this;
+      let vm = this
       setTimeout(function() {
         aria2.tellWaiting(0, 1000).then(
           function(res) {
-            let pausedTemp = [];
-            let waitingTemp = [];
+            let pausedTemp = []
+            let waitingTemp = []
             for (let i = 0; i < res.length; ++i) {
               if (res[i].status === 'paused') {
-                pausedTemp.push(res[i]);
+                pausedTemp.push(res[i])
               } else {
-                waitingTemp.push(res[i]);
+                waitingTemp.push(res[i])
               }
             }
-            vm.waiting = waitingTemp;
-            vm.paused = pausedTemp;
+            vm.waiting = waitingTemp
+            vm.paused = pausedTemp
           },
           function(err) {
-            vm.printString(JSON.stringify(err));
+            vm.printString(JSON.stringify(err))
           }
-        );
+        )
         aria2.tellActive([0, 1000]).then(
           function(res) {
-            vm.active = res;
+            vm.active = res
           },
           function(err) {
-            vm.printString(JSON.stringify(err));
+            vm.printString(JSON.stringify(err))
           }
-        );
+        )
         aria2.tellStopped(0, 1000).then(
           function(res) {
-            let completeTemp = [];
-            let errorTemp = [];
+            let completeTemp = []
+            let errorTemp = []
             for (let i = 0; i < res.length; ++i) {
               if (res[i].status === 'complete') {
-                completeTemp.push(res[i]);
+                completeTemp.push(res[i])
               } else {
-                errorTemp.push(res[i]);
+                errorTemp.push(res[i])
               }
             }
-            vm.complete = completeTemp;
-            vm.error = errorTemp;
+            vm.complete = completeTemp
+            vm.error = errorTemp
           },
           function(err) {
-            vm.printString(JSON.stringify(err));
+            vm.printString(JSON.stringify(err))
           }
-        );
-      }, 100);
+        )
+      }, 100)
     },
     deleteTasks() {
-      let vm = this;
-      let targetList = document.getElementsByClassName('task');
+      let vm = this
+      let targetList = document.getElementsByClassName('task')
       for (let i = 0; i < targetList.length; ++i) {
         if (targetList[i].classList.contains('is-selected')) {
-          const status = vm.all[i].status;
+          const status = vm.all[i].status
           if (status === 'active' || status === 'waiting' || status === 'paused') {
-            vm.deleteActiveTask(i);
+            vm.deleteActiveTask(i)
           } else {
-            vm.deleteCompletedTask(i);
+            vm.deleteCompletedTask(i)
           }
         }
       }
-      vm.updateView();
-      vm.clearSelected();
+      vm.updateView()
+      vm.clearSelected()
     },
     clearSelected() {
-      let targetList = document.getElementsByClassName('is-selected');
+      let targetList = document.getElementsByClassName('is-selected')
       while (targetList.length != 0) {
-        targetList[0].classList.remove('is-selected');
+        targetList[0].classList.remove('is-selected')
       }
     },
     deleteActiveTask(index) {
-      let vm = this;
+      let vm = this
       aria2.remove(vm.all[index].gid).then(
         function(res) {
-          vm.printString('Successfully deleted ' + JSON.stringify(res));
+          vm.printString('Successfully deleted ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err));
+          vm.printString(JSON.stringify(err))
         }
-      );
-      vm.deleteCompletedTask(index);
+      )
+      vm.deleteCompletedTask(index)
     },
     deleteCompletedTask(index) {
-      let vm = this;
+      let vm = this
       aria2.removeDownloadResult(vm.all[index].gid).then(
         function(res) {
-          vm.printString('Successfully deleted ' + JSON.stringify(res));
+          vm.printString('Successfully deleted ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err));
+          vm.printString(JSON.stringify(err))
         }
-      );
+      )
     },
     pauseTasks() {
-      let vm = this;
-      let targetList = document.getElementsByClassName('task');
+      let vm = this
+      let targetList = document.getElementsByClassName('task')
       for (let i = 0; i < targetList.length; ++i) {
         if (targetList[i].classList.contains('is-selected')) {
           aria2.pause(vm.all[i].gid).then(
             function(res) {
-              vm.printString('Successfully paused ' + JSON.stringify(res));
+              vm.printString('Successfully paused ' + JSON.stringify(res))
             },
             function(err) {
-              vm.printString(JSON.stringify(err));
+              vm.printString(JSON.stringify(err))
             }
-          );
+          )
         }
       }
-      vm.updateView();
-      vm.clearSelected();
+      vm.updateView()
+      vm.clearSelected()
     },
     pauseAllTasks() {
-      let vm = this;
+      let vm = this
       aria2.pauseAll().then(
         function(res) {
-          vm.printString('Paused all ' + JSON.stringify(res));
+          vm.printString('Paused all ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err));
+          vm.printString(JSON.stringify(err))
         }
-      );
-      vm.clearSelected();
+      )
+      vm.clearSelected()
       setTimeout(function() {
-        vm.updateView();
-      }, 1000);
+        vm.updateView()
+      }, 1000)
     },
     resumeTasks() {
-      let vm = this;
-      let targetList = document.getElementsByClassName('task');
+      let vm = this
+      let targetList = document.getElementsByClassName('task')
       for (let i = 0; i < targetList.length; ++i) {
         if (targetList[i].classList.contains('is-selected')) {
           aria2.unpause(vm.all[i].gid).then(
             function(res) {
-              vm.printString('Successfully resumed ' + JSON.stringify(res));
+              vm.printString('Successfully resumed ' + JSON.stringify(res))
             },
             function(err) {
-              vm.printString(JSON.stringify(err));
+              vm.printString(JSON.stringify(err))
             }
-          );
+          )
         }
       }
-      vm.updateView();
-      vm.clearSelected();
+      vm.updateView()
+      vm.clearSelected()
     },
     resumeAllTasks() {
-      let vm = this;
+      let vm = this
       aria2.unpauseAll().then(
         function(res) {
-          vm.printString('Resumed all ' + JSON.stringify(res));
+          vm.printString('Resumed all ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err));
+          vm.printString(JSON.stringify(err))
         }
-      );
-      vm.updateView();
-      vm.clearSelected();
+      )
+      vm.updateView()
+      vm.clearSelected()
     },
     fileChange($event) {
-      let vm = this;
-      let files = $event.target.files;
+      let vm = this
+      let files = $event.target.files
       for (let i = 0; i < files.length; ++i) {
-        let reader = new FileReader();
+        let reader = new FileReader()
         reader.onload = () => {
-          let result = window.btoa(reader.result);
-          console.log(result);
+          let result = window.btoa(reader.result)
+          console.log(result)
           aria2.addTorrent(result).then(
             function (res) {
-              vm.printString('Added Torrent ' + JSON.stringify(res));
+              vm.printString('Added Torrent ' + JSON.stringify(res))
             },
             function (err) {
-              vm.printString(JSON.stringify(err));
+              vm.printString(JSON.stringify(err))
             }
-          );
-          vm.updateView();
+          )
+          vm.updateView()
         }
-        reader.readAsBinaryString(files[i]);
+        reader.readAsBinaryString(files[i])
       }
     }
   }
-});
+})
