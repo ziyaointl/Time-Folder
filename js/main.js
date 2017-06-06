@@ -429,14 +429,20 @@ let app = new Vue({
       let targetList = document.getElementsByClassName('task')
       for (let i = 0; i < targetList.length; ++i) {
         if (targetList[i].classList.contains('is-selected')) {
-          aria2.unpause(vm.all[i].gid).then(
-            function(res) {
-              vm.printString('Successfully resumed ' + JSON.stringify(res))
-            },
-            function(err) {
-              vm.printString(JSON.stringify(err))
-            }
-          )
+          if (vm.all[i].status === 'error') {
+            let url = vm.all[i].files[0].uris[0].uri
+            this.deleteCompletedTask(i)
+            this.addLink(url)
+          } else {
+            aria2.unpause(vm.all[i].gid).then(
+              function(res) {
+                vm.printString('Successfully resumed ' + JSON.stringify(res))
+              },
+              function(err) {
+                vm.printString(JSON.stringify(err))
+              }
+            )
+          }
         }
       }
       vm.updateView()
