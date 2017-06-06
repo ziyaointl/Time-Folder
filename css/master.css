@@ -211,15 +211,3 @@ html {
   border-bottom: solid;
   border-bottom-width: 1px;
   border-bottom-color: #eee; }
-
-.title-bar-button-group {
-  display: flex;
-  margin-top: 12px;
-  margin-left: 12px; }
-
-.title-bar-button {
-  height: 12px;
-  width: 12px;
-  margin-right: 10px;
-  border-radius: 100%;
-  background-color: #999; }

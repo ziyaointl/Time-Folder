@@ -5,7 +5,7 @@ const url = require('url');
 let win;
 
 function createWindow() {
-  win = new BrowserWindow({width: 1000, height: 600, frame: false});
+  win = new BrowserWindow({width: 1000, height: 600, titleBarStyle: 'hiddenInset'});
   win.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',

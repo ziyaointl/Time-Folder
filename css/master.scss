@@ -160,17 +160,3 @@ html {
   border-bottom-width: 1px;
   border-bottom-color: $grey;
 }
-
-.title-bar-button-group {
-  display: flex;
-  margin-top: 12px;
-  margin-left: 12px;
-}
-
-.title-bar-button {
-  height: 12px;
-  width: 12px;
-  margin-right: 10px;
-  border-radius: 100%;
-  background-color: $light-black;
-}
