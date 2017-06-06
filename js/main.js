@@ -221,19 +221,25 @@ let app = new Vue({
   data: {
     message: "",
     url: "",
-    active: [],
+    specialActive: [],
     waiting: [],
     paused: [],
-    stopped: [],
-    complete: [],
-    error: []
+    specialComplete: [],
+    error: [],
+    seeding: []
   },
   computed: {
     all() {
-      return this.active.concat(this.waiting.concat(this.paused.concat(this.complete.concat(this.error))))
+      return this.active.concat(this.complete);
     },
     currentTab() {
       return store.state.currentTab
+    },
+    active() {
+      return this.specialActive.concat(this.paused.concat(this.waiting.concat(this.error)))
+    },
+    complete() {
+      return this.specialComplete.concat(this.seeding)
     }
   },
   mounted() {
@@ -303,7 +309,18 @@ let app = new Vue({
         )
         aria2.tellActive([0, 1000]).then(
           function(res) {
-            vm.active = res
+            let activeTemp = []
+            let seedingTemp = []
+            for (let i = 0; i < res.length; ++i) {
+              if (res[i].seeder === 'true') {
+                res[i].status = 'seeding'
+                seedingTemp.push(res[i])
+              } else {
+                activeTemp.push(res[i])
+              }
+            }
+            vm.specialActive = activeTemp
+            vm.seeding = seedingTemp
           },
           function(err) {
             vm.printString(JSON.stringify(err))
@@ -320,7 +337,7 @@ let app = new Vue({
                 errorTemp.push(res[i])
               }
             }
-            vm.complete = completeTemp
+            vm.specialComplete = completeTemp
             vm.error = errorTemp
           },
           function(err) {

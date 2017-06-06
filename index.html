@@ -129,7 +129,7 @@
           <task :data="task" v-for="(task, index) in active" :key="index" v-show="currentTab === 'All' || currentTab === 'Active'"></task>
         </div>
       </tab>
-      <tab name="Waiting" icon="ion-ios-more-outline">
+      <!-- <tab name="Waiting" icon="ion-ios-more-outline">
         <div id="waiting-tasks">
           <task :data="task" v-for="(task, index) in waiting" :key="index" v-show="currentTab === 'All' || currentTab === 'Waiting'"></task>
         </div>
@@ -138,17 +138,17 @@
         <div id="paused-tasks">
           <task :data="task" v-for="(task, index) in paused" :key="index" v-show="currentTab === 'All' || currentTab === 'Paused'"></task>
         </div>
-      </tab>
+      </tab> -->
       <tab name="Complete" icon="ion-ios-checkmark-outline">
         <div id="complete-tasks">
           <task :data="task" v-for="(task, index) in complete" :key="index" v-show="currentTab === 'All' || currentTab === 'Complete'"></task>
         </div>
       </tab>
-      <tab name="Error" icon="ion-ios-close-outline">
+      <!-- <tab name="Error" icon="ion-ios-close-outline">
         <div id="error-tasks">
           <task :data="task" v-for="(task, index) in error" :key="index" v-show="currentTab === 'All' || currentTab === 'Error'"></task>
         </div>
-      </tab>
+      </tab> -->
     </tabs>
     <p v-html="message" class="main-frame"></p>
   </div>
