@@ -49,7 +49,12 @@ Vue.component('task', {
       return this.convertToFileSize(this.data.downloadSpeed) + '/s'
     },
     status() {
-      return this.data.status[0].toUpperCase() + this.data.status.substr(1)
+      let ret = this.data.status;
+      if (ret === 'seeding paused') {
+        return 'Seeding Paused'
+      } else {
+        return ret[0].toUpperCase() + ret.substr(1)
+      }
     },
     timeRemaining() {
       let remainingBytes = this.data.totalLength - this.data.completedLength
@@ -229,7 +234,8 @@ let app = new Vue({
     paused: [],
     specialComplete: [],
     error: [],
-    seeding: []
+    seeding: [],
+    seedingPaused: []
   },
   computed: {
     all() {
@@ -242,7 +248,7 @@ let app = new Vue({
       return this.specialActive.concat(this.paused.concat(this.waiting.concat(this.error)))
     },
     complete() {
-      return this.specialComplete.concat(this.seeding)
+      return this.specialComplete.concat(this.seeding.concat(this.seedingPaused))
     }
   },
   mounted() {
@@ -296,15 +302,22 @@ let app = new Vue({
           function(res) {
             let pausedTemp = []
             let waitingTemp = []
+            let seedingPausedTemp = []
             for (let i = 0; i < res.length; ++i) {
               if (res[i].status === 'paused') {
-                pausedTemp.push(res[i])
+                if (res[i].seeder === 'true') {
+                  res[i].status = 'seeding paused'
+                  seedingPausedTemp.push(res[i])
+                } else {
+                  pausedTemp.push(res[i])
+                }
               } else {
                 waitingTemp.push(res[i])
               }
             }
             vm.waiting = waitingTemp
             vm.paused = pausedTemp
+            vm.seedingPaused = seedingPausedTemp
           },
           function(err) {
             vm.printString(JSON.stringify(err))
