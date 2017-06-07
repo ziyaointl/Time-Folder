@@ -90,6 +90,9 @@ Vue.component('task', {
       } else {
         return this.getFileNameFromPath(this.data.files[0].path)
       }
+    },
+    metadata() {
+      return this.data.following;
     }
   },
   methods: {
@@ -332,7 +335,9 @@ let app = new Vue({
             let errorTemp = []
             for (let i = 0; i < res.length; ++i) {
               if (res[i].status === 'complete') {
-                completeTemp.push(res[i])
+                if (!res[i].followedBy) {
+                  completeTemp.push(res[i])
+                }
               } else {
                 errorTemp.push(res[i])
               }
