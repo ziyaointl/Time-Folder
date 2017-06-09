@@ -54,6 +54,9 @@
 .progress-bar {
   position: relative; }
 
+.task-info {
+  margin-bottom: 0 !important; }
+
 .task-info > p {
   margin-right: 10px; }
 
@@ -67,23 +70,13 @@
 .more-info {
   flex-direction: column;
   color: #666;
-  border-bottom: solid;
-  border-bottom-color: #eee;
-  border-bottom-width: 1px;
-  border-left: solid;
-  border-left-width: 3px;
-  border-left-color: #f4f4f4;
   transition: 0.5s;
-  background-color: #f4f4f4;
   display: flex;
   height: 0;
-  padding-left: 40px;
-  padding-right: 40px;
   overflow: hidden; }
 
 .is-shown {
-  height: 150px;
-  padding-top: 30px; }
+  height: 150px; }
 
 html {
   background-color: #fafafa;

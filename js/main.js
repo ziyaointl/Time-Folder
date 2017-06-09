@@ -144,7 +144,7 @@ Vue.component('task', {
     showInfo(event) {
       event.stopPropagation()
       let icon = event.currentTarget
-      let target = event.currentTarget.parentElement.parentElement.nextElementSibling
+      let target = event.currentTarget.parentElement.nextElementSibling
       if (target.classList.contains("is-shown")) {
         Velocity(icon, { rotateZ: 0 })
         target.classList.remove("is-shown")
