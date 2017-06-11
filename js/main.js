@@ -16,6 +16,23 @@ aria2.onopen = function() {
 
 aria2.open()
 
+function getFileNameFromPath(path) {
+  return path.replace(/^.*[\\\/]/, '')
+}
+
+function getName(data) {
+  if (data.bittorrent) {
+    if (data.bittorrent.info) {
+      return data.bittorrent.info.name
+    }
+  }
+  if (data.files[0].path === "") {
+    return data.files[0].uris[0].uri
+  } else {
+    return getFileNameFromPath(data.files[0].path)
+  }
+}
+
 const store = new Vuex.Store({
   state: {
     currentTab: "All"
@@ -84,16 +101,7 @@ Vue.component('task', {
       return this.data.seeder
     },
     name() {
-      if (this.data.bittorrent) {
-        if (this.data.bittorrent.info) {
-          return this.data.bittorrent.info.name
-        }
-      }
-      if (this.data.files[0].path === "") {
-        return this.data.files[0].uris[0].uri
-      } else {
-        return this.getFileNameFromPath(this.data.files[0].path)
-      }
+      return getName(this.data)
     },
     metadata() {
       return this.data.following;
@@ -147,9 +155,6 @@ Vue.component('task', {
         })
         target.classList.add("is-shown")
       }
-    },
-    getFileNameFromPath(path) {
-      return path.replace(/^.*[\\\/]/, '')
     }
   }
 })
