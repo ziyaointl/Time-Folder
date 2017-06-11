@@ -263,10 +263,10 @@ let app = new Vue({
 
     aria2.getVersion().then(
       function(res) {
-        vm.printString(JSON.stringify(res))
+        vm.printNotification(JSON.stringify(res))
       },
       function(err) {
-        vm.printString(JSON.stringify(err))
+        vm.printNotification(JSON.stringify(err), 'error')
       }
     )
 
@@ -288,18 +288,22 @@ let app = new Vue({
       let vm = this
       aria2.addUri([url]).then(
         function(res) {
-          vm.printString(JSON.stringify(res))
+          vm.printNotification(JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err))
+          vm.printNotification(JSON.stringify(err), 'error')
         }
       )
       vm.url = ""
       vm.updateView()
       vm.clearSelected()
     },
-    printString(string) {
+    printNotification(string, type) {
+      if (type === undefined) {
+        type = 'alert'
+      }
       new Noty({
+        type: type,
         layout: 'topRight',
         theme: 'mint',
         timeout: 1000,
@@ -307,7 +311,7 @@ let app = new Vue({
         closeWith: ['click'],
         queue: 'global',
         text: string,
-        force: true,
+        force: false,
         animation: {
           open: function(promise) {
             var n = this;
@@ -379,7 +383,7 @@ let app = new Vue({
             vm.seedingPaused = seedingPausedTemp
           },
           function(err) {
-            vm.printString(JSON.stringify(err))
+            vm.printNotification(JSON.stringify(err), 'error')
           }
         )
         aria2.tellActive([0, 1000]).then(
@@ -398,7 +402,7 @@ let app = new Vue({
             vm.seeding = seedingTemp
           },
           function(err) {
-            vm.printString(JSON.stringify(err))
+            vm.printNotification(JSON.stringify(err), 'error')
           }
         )
         aria2.tellStopped(0, 1000).then(
@@ -418,7 +422,7 @@ let app = new Vue({
             vm.error = errorTemp
           },
           function(err) {
-            vm.printString(JSON.stringify(err))
+            vm.printNotification(JSON.stringify(err), error)
           }
         )
       }, 100)
@@ -449,10 +453,10 @@ let app = new Vue({
       let vm = this
       aria2.remove(vm.all[index].gid).then(
         function(res) {
-          vm.printString('Successfully deleted ' + JSON.stringify(res))
+          vm.printNotification('Deleted ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err))
+          vm.printNotification(JSON.stringify(err), 'error')
         }
       )
       vm.deleteCompletedTask(index)
@@ -461,10 +465,10 @@ let app = new Vue({
       let vm = this
       aria2.removeDownloadResult(vm.all[index].gid).then(
         function(res) {
-          vm.printString('Successfully deleted ' + JSON.stringify(res))
+          vm.printNotification('Successfully deleted ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err))
+          vm.printNotification(JSON.stringify(err), 'error')
         }
       )
     },
@@ -475,10 +479,10 @@ let app = new Vue({
         if (targetList[i].classList.contains('is-selected')) {
           aria2.pause(vm.all[i].gid).then(
             function(res) {
-              vm.printString('Successfully paused ' + JSON.stringify(res))
+              vm.printNotification('Successfully paused ' + JSON.stringify(res))
             },
             function(err) {
-              vm.printString(JSON.stringify(err))
+              vm.printNotification(JSON.stringify(err), 'error')
             }
           )
         }
@@ -490,10 +494,10 @@ let app = new Vue({
       let vm = this
       aria2.pauseAll().then(
         function(res) {
-          vm.printString('Paused all ' + JSON.stringify(res))
+          vm.printNotification('Paused all ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err))
+          vm.printNotification(JSON.stringify(err), 'error')
         }
       )
       vm.clearSelected()
@@ -513,10 +517,10 @@ let app = new Vue({
           } else {
             aria2.unpause(vm.all[i].gid).then(
               function(res) {
-                vm.printString('Successfully resumed ' + JSON.stringify(res))
+                vm.printNotification('Successfully resumed ' + JSON.stringify(res))
               },
               function(err) {
-                vm.printString(JSON.stringify(err))
+                vm.printNotification(JSON.stringify(err), 'error')
               }
             )
           }
@@ -529,10 +533,10 @@ let app = new Vue({
       let vm = this
       aria2.unpauseAll().then(
         function(res) {
-          vm.printString('Resumed all ' + JSON.stringify(res))
+          vm.printNotification('Resumed all ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printString(JSON.stringify(err))
+          vm.printNotification(JSON.stringify(err), 'error')
         }
       )
       vm.updateView()
@@ -548,10 +552,10 @@ let app = new Vue({
           console.log(result)
           aria2.addTorrent(result).then(
             function(res) {
-              vm.printString('Added Torrent ' + JSON.stringify(res))
+              vm.printNotification('Added Torrent ' + JSON.stringify(res))
             },
             function(err) {
-              vm.printString(JSON.stringify(err))
+              vm.printNotification(JSON.stringify(err), 'error')
             }
           )
           vm.updateView()
