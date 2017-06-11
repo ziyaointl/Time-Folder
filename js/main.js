@@ -34,7 +34,7 @@ Vue.component('task', {
     percentFinished() {
       let n = ((this.data.completedLength / this.data.totalLength) * 100).toFixed(2)
       n = parseFloat(n)
-      if (n != n)  {
+      if (n != n) {
         return 0
       }
       return n
@@ -61,8 +61,7 @@ Vue.component('task', {
       let remainingSeconds = remainingBytes / this.data.downloadSpeed
       if (remainingSeconds != remainingSeconds || remainingSeconds === Infinity) {
         return Infinity
-      }
-      else {
+      } else {
         return this.convertToTime(math.round(remainingSeconds))
       }
     },
@@ -104,31 +103,24 @@ Vue.component('task', {
     convertToFileSize(num) {
       if (num < 1024) {
         return num + 'B'
-      }
-      else if (num < 1024*1024) {
+      } else if (num < 1024 * 1024) {
         return parseFloat((num / 1024).toFixed(2)) + 'KB'
-      }
-      else if (num < 1024*1024*1024) {
-        return parseFloat((num / (1024*1024)).toFixed(2)) + 'MB'
-      }
-      else if (num < 1024*1024*1024*1024) {
-        return parseFloat((num / (1024*1024*1024)).toFixed(2)) + 'GB'
-      }
-      else {
-        return parseFloat((num / (1024*1024*1024*1024)).toFixed(2)) + 'TB'
+      } else if (num < 1024 * 1024 * 1024) {
+        return parseFloat((num / (1024 * 1024)).toFixed(2)) + 'MB'
+      } else if (num < 1024 * 1024 * 1024 * 1024) {
+        return parseFloat((num / (1024 * 1024 * 1024)).toFixed(2)) + 'GB'
+      } else {
+        return parseFloat((num / (1024 * 1024 * 1024 * 1024)).toFixed(2)) + 'TB'
       }
     },
     convertToTime(num) {
       if (num < 60) {
         return num + 's'
-      }
-      else if (num < 60 * 60) {
+      } else if (num < 60 * 60) {
         return math.round(num / 60) + 'min'
-      }
-      else if (num < 60 * 60 * 60) {
+      } else if (num < 60 * 60 * 60) {
         return math.round(num / (60 * 60)) + 'h'
-      }
-      else {
+      } else {
         return math.round(num / (60 * 60 * 24)) + 'd'
       }
     },
@@ -136,8 +128,7 @@ Vue.component('task', {
       let target = event.currentTarget
       if (target.classList.contains("is-selected")) {
         target.classList.remove("is-selected")
-      }
-      else {
+      } else {
         target.classList.add("is-selected")
       }
     },
@@ -146,10 +137,14 @@ Vue.component('task', {
       let icon = event.currentTarget
       let target = event.currentTarget.parentElement.nextElementSibling
       if (target.classList.contains("is-shown")) {
-        Velocity(icon, { rotateZ: 0 })
+        Velocity(icon, {
+          rotateZ: 0
+        })
         target.classList.remove("is-shown")
       } else {
-        Velocity(icon, { rotateZ: 180 })
+        Velocity(icon, {
+          rotateZ: 180
+        })
         target.classList.add("is-shown")
       }
     },
@@ -177,8 +172,12 @@ Vue.component('simple-tabs', {
 Vue.component('simple-tab', {
   template: '#simple-tab-template',
   props: {
-    name: { required: true },
-    selected: { default: false }
+    name: {
+      required: true
+    },
+    selected: {
+      default: false
+    }
   },
   data() {
     return {
@@ -213,9 +212,15 @@ Vue.component('tabs', {
 Vue.component('tab', {
   template: '#tab-template',
   props: {
-    name: { required: true },
-    selected: { default: false },
-    icon: { required: true }
+    name: {
+      required: true
+    },
+    selected: {
+      default: false
+    },
+    icon: {
+      required: true
+    }
   },
   data() {
     return {
@@ -230,7 +235,6 @@ Vue.component('tab', {
 let app = new Vue({
   el: "#app",
   data: {
-    message: "",
     url: "",
     specialActive: [],
     waiting: [],
@@ -258,10 +262,10 @@ let app = new Vue({
     let vm = this
 
     aria2.getVersion().then(
-      function (res) {
+      function(res) {
         vm.printString(JSON.stringify(res))
       },
-      function (err) {
+      function(err) {
         vm.printString(JSON.stringify(err))
       }
     )
@@ -295,8 +299,60 @@ let app = new Vue({
       vm.clearSelected()
     },
     printString(string) {
-      // this.message += "<br>" + string
-      console.log(string)
+      new Noty({
+        layout: 'topRight',
+        theme: 'mint',
+        timeout: 1000,
+        progressBar: true,
+        closeWith: ['click'],
+        queue: 'global',
+        text: string,
+        force: true,
+        animation: {
+          open: function(promise) {
+            var n = this;
+            Velocity(n.barDom, {
+              left: 450,
+              scaleY: 2
+            }, {
+              duration: 0
+            });
+            Velocity(n.barDom, {
+              left: 0,
+              scaleY: 1
+            }, {
+              easing: [8, 8],
+              complete: function() {
+                promise(function(resolve) {
+                  resolve();
+                })
+              }
+            });
+          },
+          close: function(promise) {
+            var n = this;
+            Velocity(n.barDom, {
+              left: '+=-50'
+            }, {
+              easing: [8, 8, 2],
+              duration: 350
+            });
+            Velocity(n.barDom, {
+              left: 450,
+              scaleY: .2,
+              height: 0,
+              margin: 0
+            }, {
+              easing: [8, 8],
+              complete: function() {
+                promise(function(resolve) {
+                  resolve();
+                })
+              }
+            });
+          }
+        }
+      }).show();
     },
     updateView() {
       let vm = this
@@ -491,10 +547,10 @@ let app = new Vue({
           let result = window.btoa(reader.result)
           console.log(result)
           aria2.addTorrent(result).then(
-            function (res) {
+            function(res) {
               vm.printString('Added Torrent ' + JSON.stringify(res))
             },
-            function (err) {
+            function(err) {
               vm.printString(JSON.stringify(err))
             }
           )
