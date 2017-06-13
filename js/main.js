@@ -311,8 +311,8 @@ let app = new Vue({
         type: type,
         layout: 'topRight',
         theme: 'mint',
-        timeout: 1000,
-        progressBar: true,
+        timeout: 2000,
+        progressBar: false,
         closeWith: ['click'],
         queue: 'global',
         text: string,
@@ -456,12 +456,13 @@ let app = new Vue({
     },
     deleteActiveTask(index) {
       let vm = this
+      let name = getName(vm.all[index])
       aria2.remove(vm.all[index].gid).then(
         function(res) {
-          vm.printNotification('Deleted ' + JSON.stringify(res))
+          vm.printNotification('Deleted ' + name)
         },
         function(err) {
-          vm.printNotification(JSON.stringify(err), 'error')
+          // vm.printNotification(JSON.stringify(err), 'error')
         }
       )
       vm.deleteCompletedTask(index)
@@ -473,7 +474,7 @@ let app = new Vue({
           vm.printNotification('Successfully deleted ' + JSON.stringify(res))
         },
         function(err) {
-          vm.printNotification(JSON.stringify(err), 'error')
+          // vm.printNotification(JSON.stringify(err), 'error')
         }
       )
     },
@@ -482,9 +483,10 @@ let app = new Vue({
       let targetList = document.getElementsByClassName('task')
       for (let i = 0; i < targetList.length; ++i) {
         if (targetList[i].classList.contains('is-selected')) {
+          let name = getName(vm.all[i])
           aria2.pause(vm.all[i].gid).then(
             function(res) {
-              vm.printNotification('Successfully paused ' + JSON.stringify(res))
+              vm.printNotification('Pausing ' + name)
             },
             function(err) {
               vm.printNotification(JSON.stringify(err), 'error')
@@ -499,7 +501,7 @@ let app = new Vue({
       let vm = this
       aria2.pauseAll().then(
         function(res) {
-          vm.printNotification('Paused all ' + JSON.stringify(res))
+          vm.printNotification('Pausing all active tasks (including seeding ones)')
         },
         function(err) {
           vm.printNotification(JSON.stringify(err), 'error')
