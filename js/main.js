@@ -293,7 +293,7 @@ let app = new Vue({
       let vm = this
       aria2.addUri([url]).then(
         function(res) {
-          vm.printNotification(JSON.stringify(res))
+          vm.printNotification('Added URL: ' + url)
         },
         function(err) {
           vm.printNotification(JSON.stringify(err), 'error')
