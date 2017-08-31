@@ -20,6 +20,7 @@ function getFileNameFromPath(path) {
   return path.replace(/^.*[\\\/]/, '')
 }
 
+//Get name of a given task
 function getName(data) {
   if (data.bittorrent) {
     if (data.bittorrent.info) {
@@ -33,6 +34,7 @@ function getName(data) {
   }
 }
 
+//Initialize VueX
 const store = new Vuex.Store({
   state: {
     currentTab: "All"
