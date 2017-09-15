@@ -59,7 +59,7 @@
       <slot></slot>
     </div>
   </script>
-  <script type="text/x-template" id="simple-tabs-template">
+  <script type="text/x-template" id="horizontal-tabs-template">
     <div>
       <div class="tabs is-centered is-fullwidth">
         <ul>
@@ -71,7 +71,7 @@
       </div>
     </div>
   </script>
-  <script type="text/x-template" id="simple-tab-template">
+  <script type="text/x-template" id="horizontal-tab-template">
     <div v-show="isActive">
       <slot></slot>
     </div>
@@ -104,8 +104,8 @@
           </header> -->
           <div class="card-content">
             <div class="content">
-              <simple-tabs>
-                <simple-tab name="Link" :selected="true">
+              <horizontal-tabs>
+                <horizontal-tab name="Link" :selected="true">
                   <div class="field">
                     <!-- <label class="label">Link</label> -->
                     <p class="control row">
@@ -113,8 +113,8 @@
                       <a class="button" @click="addLink(url)" id="addLink">Add</a>
                     </p>
                   </div>
-                </simple-tab>
-                <simple-tab name="Torrent">
+                </horizontal-tab>
+                <horizontal-tab name="Torrent">
                   <p>Here goes the torrent file.</p>
                   <form enctype="multipart/form-data">
                     <div class="dropbox">
@@ -122,8 +122,8 @@
                       <label for="file-input"> <a class="button">Select File</a> </label>
                     </div>
                   </form>
-                </simple-tab>
-              </simple-tabs>
+                </horizontal-tab>
+              </horizontal-tabs>
             </div>
           </div>
         </div>
