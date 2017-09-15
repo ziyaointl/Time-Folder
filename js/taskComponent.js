@@ -1,4 +1,5 @@
 exports.initialize = function() {
+  const getName = require('./utility.js').getName
   Vue.component('task', {
     template: '#task-template',
     props: ['data'],
