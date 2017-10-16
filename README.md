@@ -2,6 +2,8 @@
 
 A modern download manager for MacOS. Supports HTTP, FTP, SFTP, and BitTorrent. Backend handled by  [aria2](https://aria2.github.io/).
 
+![screenshot](https://img.ziyaointl.com/uploads/big/2af4ce590c58162f66f7ff6bf21d586b.png)
+
 This software is still in development and may contain bugs. If you are not a developer, please check back for future releases.
 
 ### Install
