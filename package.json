@@ -1,8 +1,12 @@
 {
   "dependencies": {
-    "aria2": "^3.0.0"
+
   },
   "name": "time-folder",
   "version": "0.0.1",
-  "main": "index.js"
+  "main": "index.js",
+  "devDependencies": {
+    "electron": "^1.7.9",
+    "aria2": "^3.0.0"
+  }
 }
