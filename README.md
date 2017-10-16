@@ -57,6 +57,7 @@ If you want to contribute to the development of Time Folder, you can set it up u
 9. In a new terminal window, cd to your cloned Time-Folder directory and start electron
 
    ```bash
+   cd /path/to/your/cloned/repository/Time-Folder
    ./node_modules/.bin/electron .
    ```
 
