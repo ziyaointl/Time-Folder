@@ -1,13 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>space-folder</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="/dist/build.js"></script>
-    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./ionicons-2.0.1/css/ionicons.min.css">
-  </body>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Space Folder</title>
+  <link rel="stylesheet" type="text/css" href="./libraries/bulma.min.css">
+  <link rel="stylesheet" href="./libraries/ionicons.min.css">
+  <link rel="stylesheet" href="./css/master.css">
+  <script type="text/x-template" id="task-template">
+    <div>
+      <div class="task" @click="selectTask($event)">
+        <div class="row">
+          <p class="task-name">{{ name }}</p>
+          <p class="percent-finished">{{ percentFinished + '%'}}</p>
+        </div>
+        <div class="row progress-bar">
+          <progress class="progress" :value="percentFinished" max="100">15%</progress>
+          <div class="progress-background"></div>
+        </div>
+        <div class="row task-info">
+          <p>{{ status }}</p>
+          <p v-show="data.status === 'active'">{{ downloadSpeed }}<i class="icon ion-arrow-down-c"></i></p>
+          <p v-show="uploadSpeed && (data.status === 'active' || data.status === 'seeding') && data.bittorrent">{{ uploadSpeed }}<i class="icon ion-arrow-up-c"></i></p>
+          <p v-show="data.status === 'active'">{{ timeRemaining }}</p>
+          <p>{{ finishedSize + '/' + totalSize }}</p>
+          <p class="more-info-button" @click="showInfo($event)"><i class="icon ion-chevron-down"></i></p>
+        </div>
+        <div class="more-info">
+          <p>Directory: {{ directory }}</p>
+          <p>Connections: {{ connections }}</p>
+          <p v-if="seeders">Seeders: {{ seeders }}</p>
+          <p v-if="isSeeding">Is Seeding: {{ isSeeding }}</p>
+        </div>
+      </div>
+      <div class="more-info">
+        <p>Directory: {{ directory }}</p>
+        <p>Connections: {{ connections }}</p>
+        <p v-if="seeders">Seeders: {{ seeders }}</p>
+        <p v-if="isSeeding">Is Seeding: {{ isSeeding }}</p>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="tabs-template">
+    <div>
+      <div class="navigation">
+        <h1 v-for="tab in tabs" @click="selectTab(tab)" :class="{ 'is-active': tab.isActive }"><i :class="'icon ' + tab.icon"></i>{{ tab.name }}</h1>
+      </div>
+
+      <div class="main-frame">
+        <slot></slot>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="tab-template">
+    <div>
+      <slot></slot>
+    </div>
+  </script>
+  <script type="text/x-template" id="horizontal-tabs-template">
+    <div>
+      <div class="tabs is-centered is-fullwidth">
+        <ul>
+          <li v-for="child in $children" :class="{ 'is-active' : child.isActive }" @click="selectTab(child)"><a>{{ child.name }}</a></li>
+        </ul>
+      </div>
+      <div class="tabs-details">
+        <slot></slot>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="horizontal-tab-template">
+    <div v-show="isActive">
+      <slot></slot>
+    </div>
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="title-bar has-text-centered">
+      <p>Time Folder</p>
+    </div>
+
+    <div class="controls">
+        <a class="control-button" @click="openAddDialog"><i class="icon ion-plus-round"></i> Add</a>
+        <a class="control-button" @click="deleteTasks"><i class="icon ion-trash-b"></i> Delete</a>
+        <a class="control-button" @click="pauseTasks"><i class="icon ion-pause"></i> Pause</a>
+        <a class="control-button" @click="pauseAllTasks"><i class="icon ion-pause"></i> Pause All</a>
+        <a class="control-button" @click="resumeTasks"><i class="icon ion-play"></i> Resume</a>
+        <a class="control-button" @click="resumeAllTasks"><i class="icon ion-play"></i> Resume All</a>
+    </div>
+
+    <div class="modal" id="addDialog">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="card">
+          <!-- <header class="card-header">
+            <p class="card-header-title">
+              Add Task
+            </p>
+          </header> -->
+          <div class="card-content">
+            <div class="content">
+              <horizontal-tabs>
+                <horizontal-tab name="Link" :selected="true">
+                  <div class="field">
+                    <!-- <label class="label">Link</label> -->
+                    <p class="control row">
+                      <input type="text" class="input" placeholder="" v-model="url">
+                      <a class="button" @click="addLink(url)" id="addLink">Add</a>
+                    </p>
+                  </div>
+                </horizontal-tab>
+                <horizontal-tab name="Torrent">
+                  <p>Here goes the torrent file.</p>
+                  <form enctype="multipart/form-data">
+                    <div class="dropbox">
+                      <input type="file" multiple @change="fileChange($event)" class="file-input" id="file-input" accept=".torrent">
+                      <label for="file-input"> <a class="button">Select File</a> </label>
+                    </div>
+                  </form>
+                </horizontal-tab>
+              </horizontal-tabs>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close" @click="closeAddDialog"></button>
+    </div>
+
+    <tabs>
+      <tab name="All" :selected="true" icon="ion-ios-ionic-outline"></tab>
+      <tab name="Active" icon="ion-ios-timer-outline">
+        <div id="active-tasks">
+          <task :data="task" v-for="(task, index) in active" :key="index" v-show="currentTab === 'All' || currentTab === 'Active'"></task>
+        </div>
+      </tab>
+      <!-- <tab name="Waiting" icon="ion-ios-more-outline">
+        <div id="waiting-tasks">
+          <task :data="task" v-for="(task, index) in waiting" :key="index" v-show="currentTab === 'All' || currentTab === 'Waiting'"></task>
+        </div>
+      </tab>
+      <tab name="Paused" icon="ion-ios-pause-outline">
+        <div id="paused-tasks">
+          <task :data="task" v-for="(task, index) in paused" :key="index" v-show="currentTab === 'All' || currentTab === 'Paused'"></task>
+        </div>
+      </tab> -->
+      <tab name="Complete" icon="ion-ios-checkmark-outline">
+        <div id="complete-tasks">
+          <task :data="task" v-for="(task, index) in complete" :key="index" v-show="currentTab === 'All' || currentTab === 'Complete'"></task>
+        </div>
+      </tab>
+      <!-- <tab name="Error" icon="ion-ios-close-outline">
+        <div id="error-tasks">
+          <task :data="task" v-for="(task, index) in error" :key="index" v-show="currentTab === 'All' || currentTab === 'Error'"></task>
+        </div>
+      </tab> -->
+    </tabs>
+  </div>
+</body>
+<script src="./libraries/math.min.js"></script>
+<script src="./libraries/vue@2.3.4.js"></script>
+<script src="./libraries/vuex@2.3.1.js"></script>
+<script src="./node_modules/aria2/bundle.js"></script>
+<script src="./libraries/velocity.min.js"></script>
+<script src="./libraries/velocity.ui.min.js"></script>
+<link href="./libraries/noty.css" rel="stylesheet"></script>
+<script src="./libraries/noty.min.js" type="text/javascript"></script>
+<script src="./js/main.js"></script>
 </html>

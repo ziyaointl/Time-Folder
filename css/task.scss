@@ -1,0 +1,108 @@
+.task {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 40px;
+  color: $black;
+  border-bottom: solid;
+  border-bottom-color: $grey;
+  border-bottom-width: 1px;
+  border-left: solid;
+  border-left-width: 3px;
+  border-left-color: $white;
+  transition: 0.1s;
+}
+
+.task:hover, .task.is-selected {
+  background-color: $light-grey;
+  border-color: $light-grey;
+}
+
+.task:hover .progress::-webkit-progress-bar, .task.is-selected .progress::-webkit-progress-bar {
+  background-color: $light-grey;
+}
+
+.task.is-selected {
+  border-left-color: $black;
+}
+
+//This I've tried. Does not work when elements are in more than one category.
+
+// .task.is-selected ~ .is-selected::after {
+//   content: '';
+//   position: absolute;
+//   top: -10px;
+//   left: 0;
+//   height: 25px;
+//   background: $white;
+//   width: 100%;
+// }
+
+.percent-finished {
+  margin-left: auto;
+}
+
+.progress {
+  border-radius: 0;
+  margin: 0 !important;
+}
+
+.progress::-webkit-progress-bar {
+  background-color: $white;
+  border-right: solid;
+  border-left: solid;
+  border-width: 1px;
+  transition: 0.1s;
+}
+
+.progress::-webkit-progress-value {
+  background-color: $black;
+}
+
+.progress-background {
+  width: 100%;
+  height: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: $black;
+}
+
+.progress-background hr {
+  position: absolute;
+}
+
+.progress-bar {
+  position: relative;
+}
+
+.task-info {
+  margin-bottom: 0 !important;
+}
+
+.task-info > p {
+  margin-right: 10px;
+}
+
+.ion-arrow-down-c {
+  margin-left: -3px;
+}
+
+.more-info-button {
+  margin-left: auto;
+  margin-right: 0 !important;
+}
+
+.more-info {
+  flex-direction: column;
+  color: $black;
+  transition: 0.5s;
+  display: flex;
+  height: 0;
+  overflow: hidden;
+}
+
+.is-shown {
+  height: 150px;
+}
